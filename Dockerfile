@@ -12,7 +12,6 @@ RUN wget https://www.python.org/ftp/python/3.7.1/Python-3.7.1.tar.xz
 RUN echo "0a57e9022c07fad3dadb2eef58568edb Python-3.7.1.tar.xz" | md5sum -c
 RUN tar xf Python-3.7.1.tar.xz
 RUN cd Python-3.7.1 && ./configure --prefix=/usr/local && make && make install
-RUN python3 -m venv ~/.virtualenvs/app
 
 WORKDIR /home/app/app
 ENV PATH=/home/app/.local/bin:$PATH
