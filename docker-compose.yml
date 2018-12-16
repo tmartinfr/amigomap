@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+    app:
+        build: .
+        depends_on:
+            - db
+        command: sleep infinity
+        ports:
+            - "8000:8000"
+        volumes:
+            - type: bind
+              source: ./
+              target: /home/app/app/
+    db:
+        image: postgres:latest
+        environment:
+            POSTGRES_USER: db
+            POSTGRES_PASSWORD: db
