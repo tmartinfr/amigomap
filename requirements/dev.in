@@ -1,0 +1,9 @@
+-r base.in
+
+django-debug-toolbar
+django_extensions
+ipdb
+flake8
+pip-compile-multi
+pytest-cov
+pytest-django
