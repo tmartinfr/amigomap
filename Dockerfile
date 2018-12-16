@@ -1,6 +1,6 @@
 FROM debian:stretch
 RUN apt-get update
-RUN apt-get install -y vim less
+RUN apt-get install -y vim less postgresql-client
 RUN apt-get install -y wget xz-utils build-essential zlib1g-dev libffi-dev libssl-dev
 
 RUN useradd -m -G staff -s /bin/bash app
