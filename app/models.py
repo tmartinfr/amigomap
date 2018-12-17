@@ -26,6 +26,7 @@ class PlaceMap(BaseModel):
 
 
 class Tag(BaseModel):
+    placemap = models.ForeignKey(PlaceMap, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
 
     def __str__(self):
