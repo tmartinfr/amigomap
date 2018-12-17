@@ -17,10 +17,8 @@ class BaseModel(TimeStampedModel, SoftDeletableModel):
 
 
 class PlaceMap(BaseModel):
-    admin = models.ManyToManyField(User, related_name='+',
-                                   null=True, blank=True)
-    viewer = models.ManyToManyField(User, related_name='+',
-                                    null=True, blank=True)
+    admin = models.ManyToManyField(User, related_name='+', blank=True)
+    viewer = models.ManyToManyField(User, related_name='+', blank=True)
     name = models.CharField(max_length=255)
 
     def __str__(self):
