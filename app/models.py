@@ -1,3 +1,4 @@
+import enum
 import uuid
 
 from django.contrib.auth.models import User
@@ -17,6 +18,14 @@ class BaseModel(TimeStampedModel, SoftDeletableModel):
 
 
 class PlaceMap(BaseModel):
+
+    class Visibility(enum.Enum):
+        public = 'Public'
+        private = 'Private'
+
+    visibility = models.CharField(
+        max_length=32, choices=[(v.name, v.value) for v in Visibility],
+        default=Visibility.private.name)
     admin = models.ManyToManyField(User, related_name='+', blank=True)
     viewer = models.ManyToManyField(User, related_name='+', blank=True)
     name = models.CharField(max_length=255)
