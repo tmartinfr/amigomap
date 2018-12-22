@@ -17,7 +17,7 @@ class BaseModel(TimeStampedModel, SoftDeletableModel):
         abstract = True
 
 
-class PlaceMap(BaseModel):
+class Map(BaseModel):
 
     class Visibility(enum.Enum):
         public = 'Public'
@@ -35,7 +35,7 @@ class PlaceMap(BaseModel):
 
 
 class Tag(BaseModel):
-    placemap = models.ForeignKey(PlaceMap, on_delete=models.CASCADE)
+    map = models.ForeignKey(Map, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -43,7 +43,7 @@ class Tag(BaseModel):
 
 
 class Place(BaseModel):
-    placemap = models.ForeignKey(PlaceMap, on_delete=models.CASCADE)
+    map = models.ForeignKey(Map, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag)
     name = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=9, decimal_places=7)
