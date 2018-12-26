@@ -3,6 +3,7 @@
 django-debug-toolbar
 django_extensions
 ipdb
+factory_boy
 flake8
 pip-compile-multi
 pytest-cov
