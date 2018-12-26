@@ -6,6 +6,8 @@ from django.db import models
 
 from model_utils.models import TimeStampedModel, SoftDeletableModel
 
+from .fields import ColorField
+
 
 class BaseModel(TimeStampedModel, SoftDeletableModel):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4,
@@ -37,6 +39,7 @@ class Map(BaseModel):
 class Tag(BaseModel):
     map = models.ForeignKey(Map, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
+    color = ColorField()
 
     def __str__(self):
         return self.name
@@ -48,6 +51,7 @@ class Place(BaseModel):
     name = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=9, decimal_places=7)
     longitude = models.DecimalField(max_digits=10, decimal_places=7)
+    color = ColorField()
 
     def __str__(self):
         return self.name
