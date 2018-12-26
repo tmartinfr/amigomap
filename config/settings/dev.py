@@ -19,3 +19,7 @@ MIDDLEWARE = [
 ] + MIDDLEWARE  # noqa
 
 SECRET_KEY = 'd)1)w5(&@^a=avczu_j$y0a)!-zq%v_vfywfuzv8rq_51t)-^+'
+
+SHELL_PLUS_POST_IMPORTS = [
+    ('app.factories', '*'),
+]
