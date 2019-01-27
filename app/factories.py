@@ -1,4 +1,6 @@
 import factory
+from slugify import slugify
+
 from . import models
 
 
@@ -18,6 +20,7 @@ class MapFactory(factory.DjangoModelFactory):
     creator = factory.SubFactory(UserFactory)
     name = factory.Faker('city')
     visibility = models.Map.Visibility.public.name
+    slug = factory.LazyAttribute(lambda o: slugify(o.name))
 
 
 class PlaceFactory(factory.DjangoModelFactory):

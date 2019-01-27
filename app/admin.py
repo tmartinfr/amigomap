@@ -5,7 +5,11 @@ from .models import Map, Tag, Place, Evaluation
 # Register your models here.
 
 
-admin.site.register(Map)
+class MapAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('name',)}
+
+
+admin.site.register(Map, MapAdmin)
 admin.site.register(Tag)
 admin.site.register(Place)
 admin.site.register(Evaluation)

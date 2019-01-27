@@ -31,6 +31,7 @@ class Map(BaseModel):
     admin = models.ManyToManyField(User, related_name='+', blank=True)
     viewer = models.ManyToManyField(User, related_name='+', blank=True)
     name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
