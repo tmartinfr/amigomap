@@ -17,6 +17,7 @@ class MapFactory(factory.DjangoModelFactory):
 
     creator = factory.SubFactory(UserFactory)
     name = factory.Faker('city')
+    visibility = models.Map.Visibility.public.name
 
 
 class PlaceFactory(factory.DjangoModelFactory):
