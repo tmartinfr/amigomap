@@ -14,8 +14,7 @@ RUN tar xf Python-3.7.2.tar.xz
 RUN cd Python-3.7.2 && ./configure --prefix=/usr/local && make && make install
 
 WORKDIR /home/app/app
-ENV PATH=/home/app/.local/bin:$PATH
-ENV PYTHONPATH=/home/app/app:/home/app/.local/lib/python2.7/site-packages
+ENV PYTHONPATH=/home/app/app
 ENV DJANGO_SETTINGS_MODULE=config.settings.dev
 COPY requirements/*.txt requirements/
-RUN pip3 install --user -r requirements/dev.txt
+RUN pip3 install -r requirements/dev.txt
