@@ -4,3 +4,4 @@ django-model-utils
 djangorestframework
 psycopg2-binary
 python-slugify
+whitenoise
