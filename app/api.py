@@ -1,4 +1,7 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers, viewsets, mixins
+from rest_framework.decorators import action
+from rest_framework.response import Response
 from rest_framework_nested import routers
 
 from .models import Map, Place
@@ -19,6 +22,13 @@ class PlaceSerializer(serializers.ModelSerializer):
 class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Map.objects.filter(visibility=Map.Visibility.public.name)
     serializer_class = MapSerializer
+
+    @action(detail=False)
+    def bydomain(self, request):
+        map_slug = request.META['HTTP_HOST'].split('.')[0]
+        map = get_object_or_404(Map, slug=map_slug)
+        serializer = MapSerializer(map)
+        return Response(serializer.data)
 
 
 class PlaceViewSet(viewsets.ReadOnlyModelViewSet):

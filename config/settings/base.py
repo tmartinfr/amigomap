@@ -19,6 +19,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# This setting should be overwritten with a value like ['.example.com'], so
+# maps can be requested using <map_slug>.example.com.
 ALLOWED_HOSTS = []
 
 
