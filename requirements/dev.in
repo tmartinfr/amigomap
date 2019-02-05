@@ -3,6 +3,7 @@
 coreapi
 django-debug-toolbar
 django_extensions
+invoke
 ipdb
 factory_boy
 flake8
