@@ -7,6 +7,7 @@ from . import models
 class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.User
+        django_get_or_create = ('username',)
 
     username = factory.Faker('sha1')
     first_name = factory.Faker('first_name')
@@ -16,6 +17,7 @@ class UserFactory(factory.DjangoModelFactory):
 class MapFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Map
+        django_get_or_create = ('slug',)
 
     creator = factory.SubFactory(UserFactory)
     name = factory.Faker('city')
