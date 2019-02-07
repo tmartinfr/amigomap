@@ -20,7 +20,8 @@ class Command(BaseCommand):
         return admin
 
     def _create_map(self, slug, creator):
-        return MapFactory.create(slug=slug, creator=creator)
+        return MapFactory.create(
+            slug=slug, name=slug.capitalize(), creator=creator)
 
     def _create_place(self, map, creator):
         PlaceFactory.create(map=map, creator=creator)
