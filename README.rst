@@ -1,7 +1,9 @@
-This app allows your friends and family group to map, comment and evaluate the
-coolest (and most terrible) places around you.
+This app brings you the best recommandations for places around you, from people
+you like.
 
-Never go out anymore to an overpriced restaurant or a boring bar, based on YOUR
-friends advices.
+Create a map, and let your friends, colleagues or family adding new places,
+commenting, and evaluating them.
 
-Every map can be private or public.
+Choose to open your map to the public or keep it private.
+
+List restaurants, sport spots, museums, bars, everything is possible!
