@@ -1,8 +1,8 @@
 Initial setup for developers
 ============================
-- Run `docker-compose up -d`
-- Run `docker-compose exec app invoke populate-dev-db`
-- Ensure domain names of URL returned by the last command resolv to `127.0.0.1`
-- Run `docker-compose exec app invoke run`
+- Run ``docker-compose up -d``
+- Run ``docker-compose exec app invoke populate-dev-db``
+- Ensure domain names of URL returned by the last command resolv to ``127.0.0.1``
+- Run ``docker-compose exec app invoke run``
 - Open your browser to one of those URL !
 - If needed, connect to Django admin on http://localhost:8000 (admin/admin)
