@@ -48,7 +48,7 @@ class Tag(BaseModel):
 
 class Place(BaseModel):
     map = models.ForeignKey(Map, on_delete=models.CASCADE)
-    tag = models.ManyToManyField(Tag, null=True, blank=True)
+    tag = models.ManyToManyField(Tag, blank=True)
     name = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=9, decimal_places=7)
     longitude = models.DecimalField(max_digits=10, decimal_places=7)
