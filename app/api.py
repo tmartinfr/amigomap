@@ -1,6 +1,9 @@
+from uuid import UUID
+
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers, viewsets, mixins
 from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.response import Response
 from rest_framework_nested import routers
 
@@ -20,7 +23,7 @@ class PlaceSerializer(serializers.ModelSerializer):
 
 
 class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
-    queryset = Map.objects.filter(visibility=Map.Visibility.public.name)
+    queryset = Map.public.all()
     serializer_class = MapSerializer
 
     @action(detail=False)
@@ -35,11 +38,21 @@ class PlaceViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PlaceSerializer
 
     def get_queryset(self):
-        return Place.objects.filter(map=self.kwargs['map_pk'])
+        try:
+            map_uuid = UUID(self.request.query_params['map_id'])
+        except KeyError:
+            raise ParseError('Missing map_id filter')
+        except ValueError:
+            raise ParseError('map_id is not a valid UUID')
+
+        try:
+            map = Map.public.get(uuid=map_uuid)
+        except Map.DoesNotExist:
+            raise NotFound('Map not found')
+
+        return Place.objects.filter(map=map)
 
 
-main_router = routers.SimpleRouter()
-main_router.register('map', MapViewSet)
-
-map_router = routers.NestedSimpleRouter(main_router, 'map', lookup='map')
-map_router.register('place', PlaceViewSet, base_name='map-place')
+api_router = routers.SimpleRouter()
+api_router.register('map', MapViewSet)
+api_router.register('place', PlaceViewSet, basename='place')
