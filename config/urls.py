@@ -24,6 +24,9 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    from rest_framework.schemas import get_schema_view
+    schema_view = get_schema_view(title="API documentation")
     urlpatterns += [
         path('admin/', admin.site.urls),
+        path('api/schema', schema_view),
     ]
