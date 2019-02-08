@@ -23,4 +23,4 @@ def run(c):
     """
     Start development server
     """
-    c.run('django-admin runserver 0.0.0.0:8000')
+    c.run('django-admin runserver 0.0.0.0:8000', pty=True)
