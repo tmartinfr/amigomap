@@ -24,3 +24,11 @@ def run(c):
     Start development server
     """
     c.run('django-admin runserver 0.0.0.0:8000', pty=True)
+
+
+@task
+def sh(c):
+    """
+    Open Django shell
+    """
+    c.run('django-admin shell_plus', pty=True)
