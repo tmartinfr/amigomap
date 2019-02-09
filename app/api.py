@@ -5,7 +5,7 @@ from rest_framework import serializers, viewsets, mixins
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.response import Response
-from rest_framework_nested import routers
+from rest_framework.routers import SimpleRouter
 
 from .models import Map, Place
 
@@ -53,6 +53,6 @@ class PlaceViewSet(viewsets.ReadOnlyModelViewSet):
         return Place.objects.filter(map=map)
 
 
-api_router = routers.SimpleRouter()
+api_router = SimpleRouter()
 api_router.register('map', MapViewSet)
 api_router.register('place', PlaceViewSet, basename='place')
