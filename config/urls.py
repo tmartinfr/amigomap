@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.contrib import admin
 from django.urls import include, path
 
 from app.api import api_router
@@ -24,9 +23,12 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    from django.contrib import admin
     from rest_framework.schemas import get_schema_view
-    schema_view = get_schema_view(title="API documentation")
+    from rest_framework.documentation import include_docs_urls
+    schema_view = get_schema_view(title='API documentation')
     urlpatterns += [
         path('admin/', admin.site.urls),
-        path('api/schema', schema_view),
+        path('api/', schema_view),
+        path('api/doc/', include_docs_urls(title='API documentation')),
     ]
