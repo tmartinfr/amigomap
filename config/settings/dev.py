@@ -3,16 +3,6 @@ from .base import *  # noqa
 # Maps can be requested using <map_slug>.localhost.
 ALLOWED_HOSTS = ['.localhost']
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db',
-        'USER': 'db',
-        'PASSWORD': 'db',
-        'HOST': 'db',
-    }
-}
-
 DEBUG = True
 
 INSTALLED_APPS += ("debug_toolbar", "django_extensions")  # noqa

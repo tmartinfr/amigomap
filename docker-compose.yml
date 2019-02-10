@@ -11,6 +11,11 @@ services:
             - type: bind
               source: ./
               target: /home/app/app/
+        environment:
+            DB_NAME: 'db'
+            DB_USER: 'db'
+            DB_PASSWORD: 'db'
+            DB_HOST: 'db'
     db:
         image: postgres:latest
         environment:
