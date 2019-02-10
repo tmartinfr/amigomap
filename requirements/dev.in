@@ -1,5 +1,6 @@
 -r base.in
 
+bandit
 coreapi
 django-debug-toolbar
 django_extensions
@@ -7,6 +8,8 @@ invoke
 ipdb
 factory_boy
 flake8
+flake8-black
+pep8-naming
 pip-compile-multi
 pytest-cov
 pytest-django
