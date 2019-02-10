@@ -10,10 +10,12 @@ from .fields import ColorField
 
 
 class BaseModel(TimeStampedModel, SoftDeletableModel):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                            editable=False)
-    creator = models.ForeignKey(User, on_delete=models.PROTECT,
-                                related_name='+')
+    uuid = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False
+    )
+    creator = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="+"
+    )
 
     class Meta:
         abstract = True
@@ -29,16 +31,17 @@ class MapVisibilityManager(models.Manager):
 
 
 class Map(BaseModel):
-
     class Visibility(enum.Enum):
-        public = 'Public'
-        private = 'Private'
+        public = "Public"
+        private = "Private"
 
     visibility = models.CharField(
-        max_length=32, choices=[(v.name, v.value) for v in Visibility],
-        default=Visibility.private.name)
-    admin = models.ManyToManyField(User, related_name='+', blank=True)
-    viewer = models.ManyToManyField(User, related_name='+', blank=True)
+        max_length=32,
+        choices=[(v.name, v.value) for v in Visibility],
+        default=Visibility.private.name,
+    )
+    admin = models.ManyToManyField(User, related_name="+", blank=True)
+    viewer = models.ManyToManyField(User, related_name="+", blank=True)
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=50, unique=True)
 
@@ -77,4 +80,4 @@ class Evaluation(BaseModel):
     comment = models.TextField()
 
     def __str__(self):
-        return '{} by {}'.format(self.place.name, self.creator.username)
+        return "{} by {}".format(self.place.name, self.creator.username)

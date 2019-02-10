@@ -6,7 +6,7 @@ from .models import Map, Tag, Place, Evaluation
 
 
 class MapAdmin(admin.ModelAdmin):
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {"slug": ("name",)}
 
 
 admin.site.register(Map, MapAdmin)

@@ -16,13 +16,13 @@ from .models import Map, Place
 class MapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Map
-        fields = ('uuid', 'name',)
+        fields = ("uuid", "name")
 
 
 class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
-        fields = ('uuid', 'name', 'latitude', 'longitude')
+        fields = ("uuid", "name", "latitude", "longitude")
 
 
 class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -34,7 +34,7 @@ class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
         """
         Return map matching the request HTTP Host header.
         """
-        map_slug = request.META['HTTP_HOST'].split('.')[0]
+        map_slug = request.META["HTTP_HOST"].split(".")[0]
         map = get_object_or_404(Map, slug=map_slug)
         serializer = MapSerializer(map)
         return Response(serializer.data)
@@ -49,32 +49,39 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
     Return places belonging to the specified map_uuid.
     """
+
     serializer_class = PlaceSerializer
-    schema = AutoSchema(manual_fields=[coreapi.Field(
-        'map_uuid', required=True, location='query',
-        schema=coreschema.String(
-            title='uuid',
-            description='A UUID string identifying the map.',
-        )
-    )])
+    schema = AutoSchema(
+        manual_fields=[
+            coreapi.Field(
+                "map_uuid",
+                required=True,
+                location="query",
+                schema=coreschema.String(
+                    title="uuid",
+                    description="A UUID string identifying the map.",
+                ),
+            )
+        ]
+    )
 
     def get_queryset(self):
         try:
-            map_uuid = UUID(self.request.query_params['map_uuid'])
+            map_uuid = UUID(self.request.query_params["map_uuid"])
         except KeyError:
-            raise ParseError('Missing map_uuid filter')
+            raise ParseError("Missing map_uuid filter")
         except ValueError:
-            raise ParseError('map_uuid is not a valid UUID')
+            raise ParseError("map_uuid is not a valid UUID")
 
         try:
             map = Map.public.get(uuid=map_uuid)
         except Map.DoesNotExist:
-            raise NotFound('Map not found')
+            raise NotFound("Map not found")
 
         return Place.objects.filter(map=map)
 
 
 api_router = SimpleRouter()
-api_router.register('map', MapViewSet)
-api_router.register('place', PlaceListViewSet, basename='place')
-api_router.register('place', PlaceRetrieveViewSet, basename='place')
+api_router.register("map", MapViewSet)
+api_router.register("place", PlaceListViewSet, basename="place")
+api_router.register("place", PlaceRetrieveViewSet, basename="place")
