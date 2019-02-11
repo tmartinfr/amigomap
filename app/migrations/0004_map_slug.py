@@ -2,8 +2,6 @@
 
 
 from django.db import migrations, models
-import faker
-import slugify
 
 
 class Migration(migrations.Migration):
