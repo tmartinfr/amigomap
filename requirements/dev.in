@@ -1,6 +1,5 @@
 -r base.in
 
-bandit
 coreapi
 django-debug-toolbar
 django_extensions
@@ -8,6 +7,7 @@ invoke
 ipdb
 factory_boy
 flake8
+flake8-bandit
 flake8-black
 flake8-bugbear
 pep8-naming
