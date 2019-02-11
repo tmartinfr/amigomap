@@ -1,6 +1,8 @@
 from uuid import UUID
+from urllib.parse import urlencode, urljoin
 
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 import coreapi
 import coreschema
 from rest_framework import serializers, viewsets, mixins
@@ -18,6 +20,12 @@ class MapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Map
         fields = ("uuid", "name")
+        fields = ("uuid", "name", "url_place_list")
+
+    url_place_list = serializers.SerializerMethodField()
+
+    def get_url_place_list(self, obj):
+        return urljoin(reverse("place-list"), "?" + urlencode({"map_uuid": obj.uuid}))
 
 
 class PlaceSerializer(serializers.ModelSerializer):
