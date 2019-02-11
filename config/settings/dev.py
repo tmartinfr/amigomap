@@ -7,9 +7,7 @@ DEBUG = True
 
 INSTALLED_APPS += ("debug_toolbar", "django_extensions")  # noqa
 
-MIDDLEWARE = [
-    "debug_toolbar.middleware.DebugToolbarMiddleware"
-] + MIDDLEWARE  # noqa
+MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"] + MIDDLEWARE  # noqa
 
 REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"].append(
     "rest_framework.renderers.BrowsableAPIRenderer"

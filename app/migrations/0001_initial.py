@@ -152,14 +152,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("name", models.CharField(max_length=255)),
-                (
-                    "latitude",
-                    models.DecimalField(decimal_places=7, max_digits=9),
-                ),
-                (
-                    "longitude",
-                    models.DecimalField(decimal_places=7, max_digits=10),
-                ),
+                ("latitude", models.DecimalField(decimal_places=7, max_digits=9)),
+                ("longitude", models.DecimalField(decimal_places=7, max_digits=10)),
                 (
                     "creator",
                     models.ForeignKey(
@@ -171,8 +165,7 @@ class Migration(migrations.Migration):
                 (
                     "map",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="app.Map",
+                        on_delete=django.db.models.deletion.CASCADE, to="app.Map"
                     ),
                 ),
             ],
@@ -219,17 +212,14 @@ class Migration(migrations.Migration):
                 (
                     "map",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="app.Map",
+                        on_delete=django.db.models.deletion.CASCADE, to="app.Map"
                     ),
                 ),
             ],
             options={"abstract": False},
         ),
         migrations.AddField(
-            model_name="place",
-            name="tag",
-            field=models.ManyToManyField(to="app.Tag"),
+            model_name="place", name="tag", field=models.ManyToManyField(to="app.Tag")
         ),
         migrations.AddField(
             model_name="evaluation",

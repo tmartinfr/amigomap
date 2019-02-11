@@ -13,17 +13,13 @@ class Command(BaseCommand):
     MAP_SLUGS = ("resto", "coworking", "running")
 
     def _create_admin(self):
-        admin = UserFactory.create(
-            is_staff=True, is_superuser=True, username="admin"
-        )
+        admin = UserFactory.create(is_staff=True, is_superuser=True, username="admin")
         admin.set_password("admin")
         admin.save()
         return admin
 
     def _create_map(self, slug, creator):
-        return MapFactory.create(
-            slug=slug, name=slug.capitalize(), creator=creator
-        )
+        return MapFactory.create(slug=slug, name=slug.capitalize(), creator=creator)
 
     def _create_place(self, map, creator):
         PlaceFactory.create(map=map, creator=creator)

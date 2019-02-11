@@ -10,12 +10,8 @@ from .fields import ColorField
 
 
 class BaseModel(TimeStampedModel, SoftDeletableModel):
-    uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
-    )
-    creator = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="+"
-    )
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name="+")
 
     class Meta:
         abstract = True
