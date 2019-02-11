@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('app', '0004_map_slug'),
-    ]
+    dependencies = [("app", "0004_map_slug")]
 
     operations = [
         migrations.AlterField(
-            model_name='place',
-            name='tag',
-            field=models.ManyToManyField(blank=True, to='app.Tag'),
-        ),
+            model_name="place",
+            name="tag",
+            field=models.ManyToManyField(blank=True, to="app.Tag"),
+        )
     ]

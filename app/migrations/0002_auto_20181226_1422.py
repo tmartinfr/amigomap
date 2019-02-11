@@ -6,19 +6,17 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('app', '0001_initial'),
-    ]
+    dependencies = [("app", "0001_initial")]
 
     operations = [
         migrations.AddField(
-            model_name='place',
-            name='color',
-            field=app.fields.ColorField(default='000000', max_length=6),
+            model_name="place",
+            name="color",
+            field=app.fields.ColorField(default="000000", max_length=6),
         ),
         migrations.AddField(
-            model_name='tag',
-            name='color',
-            field=app.fields.ColorField(default='000000', max_length=6),
+            model_name="tag",
+            name="color",
+            field=app.fields.ColorField(default="000000", max_length=6),
         ),
     ]
