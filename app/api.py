@@ -6,6 +6,7 @@ import coreschema
 from rest_framework import serializers, viewsets, mixins
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ParseError
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.routers import SimpleRouter
 from rest_framework.schemas import AutoSchema
@@ -26,6 +27,7 @@ class PlaceSerializer(serializers.ModelSerializer):
 
 
 class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    permission_classes = (AllowAny,)
     queryset = Map.public.all()
     serializer_class = MapSerializer
 
@@ -41,6 +43,7 @@ class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
 
 class PlaceRetrieveViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    permission_classes = (AllowAny,)
     queryset = Place.objects.filter(map__visibility=Map.Visibility.public.name)
     serializer_class = PlaceSerializer
 
@@ -50,6 +53,7 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     Return places belonging to the specified map_uuid.
     """
 
+    permission_classes = (AllowAny,)
     serializer_class = PlaceSerializer
     schema = AutoSchema(
         manual_fields=[
