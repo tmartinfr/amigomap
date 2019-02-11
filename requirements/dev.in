@@ -9,6 +9,7 @@ ipdb
 factory_boy
 flake8
 flake8-black
+flake8-bugbear
 pep8-naming
 pip-compile-multi
 pytest-cov

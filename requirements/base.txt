@@ -6,7 +6,7 @@
 #    pip-compile-multi
 #
 django-model-utils==3.1.2
-django==2.1.5
+django==2.1.6
 djangorestframework==3.9.1
 psycopg2-binary==2.7.7
 python-slugify==2.0.1
