@@ -40,3 +40,4 @@ def test(c):
     Run test suite
     """
     c.run("flake8")
+    c.run("pytest -q")
