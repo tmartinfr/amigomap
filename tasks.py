@@ -32,3 +32,11 @@ def sh(c):
     Open Django shell
     """
     c.run("django-admin shell_plus", pty=True)
+
+
+@task
+def test(c):
+    """
+    Run test suite
+    """
+    c.run("flake8")
