@@ -7,6 +7,7 @@ from django.db import models
 from model_utils.models import TimeStampedModel, SoftDeletableModel
 
 from .fields import ColorField
+from .managers import FilterManager
 
 
 class BaseModel(TimeStampedModel, SoftDeletableModel):
@@ -15,15 +16,6 @@ class BaseModel(TimeStampedModel, SoftDeletableModel):
 
     class Meta:
         abstract = True
-
-
-class FilterManager(models.Manager):
-    def __init__(self, filters):
-        self.filters = filters
-        return super().__init__()
-
-    def get_queryset(self):
-        return super().get_queryset().filter(**self.filters)
 
 
 class Map(BaseModel):

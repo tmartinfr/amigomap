@@ -1,37 +1,17 @@
 from uuid import UUID
-from urllib.parse import urlencode, urljoin
 
-from django.shortcuts import get_object_or_404
-from django.urls import reverse
 import coreapi
 import coreschema
-from rest_framework import serializers, viewsets, mixins
+from django.shortcuts import get_object_or_404
+from rest_framework import viewsets, mixins
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.routers import SimpleRouter
 from rest_framework.schemas import AutoSchema
 
-from .models import Map, Place
-
-
-class MapSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Map
-        fields = ("uuid", "name")
-        fields = ("uuid", "name", "url_place_list")
-
-    url_place_list = serializers.SerializerMethodField()
-
-    def get_url_place_list(self, obj):
-        return urljoin(reverse("place-list"), "?" + urlencode({"map_uuid": obj.uuid}))
-
-
-class PlaceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Place
-        fields = ("uuid", "name", "latitude", "longitude")
+from .serializers import MapSerializer, PlaceSerializer
+from ..models import Map, Place
 
 
 class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
@@ -90,9 +70,3 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             raise NotFound("Map not found")
 
         return Place.public.filter(map=map)
-
-
-api_router = SimpleRouter()
-api_router.register("map", MapViewSet)
-api_router.register("place", PlaceListViewSet, basename="place")
-api_router.register("place", PlaceRetrieveViewSet, basename="place")
