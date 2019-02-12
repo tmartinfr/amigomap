@@ -17,13 +17,13 @@ class BaseModel(TimeStampedModel, SoftDeletableModel):
         abstract = True
 
 
-class MapVisibilityManager(models.Manager):
-    def __init__(self, visibility):
-        self.visibility = visibility
+class FilterManager(models.Manager):
+    def __init__(self, filters):
+        self.filters = filters
         return super().__init__()
 
     def get_queryset(self):
-        return super().get_queryset().filter(visibility=self.visibility)
+        return super().get_queryset().filter(**self.filters)
 
 
 class Map(BaseModel):
@@ -42,7 +42,7 @@ class Map(BaseModel):
     slug = models.SlugField(max_length=50, unique=True)
 
     objects = models.Manager()
-    public = MapVisibilityManager(Visibility.public.name)
+    public = FilterManager({"visibility": Visibility.public.name})
 
     def __str__(self):
         return self.name
