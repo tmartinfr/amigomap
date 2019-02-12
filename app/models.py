@@ -66,6 +66,8 @@ class Place(BaseModel):
     color = ColorField()
     google_place_id = models.CharField(max_length=1024, null=True, blank=True)
 
+    public = FilterManager({"map__visibility": Map.Visibility.public.name})
+
     def __str__(self):
         return self.name
 

@@ -52,7 +52,7 @@ class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
 class PlaceRetrieveViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     permission_classes = (AllowAny,)
-    queryset = Place.objects.filter(map__visibility=Map.Visibility.public.name)
+    queryset = Place.public.all()
     serializer_class = PlaceSerializer
 
 
@@ -89,7 +89,7 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         except Map.DoesNotExist:
             raise NotFound("Map not found")
 
-        return Place.objects.filter(map=map)
+        return Place.public.filter(map=map)
 
 
 api_router = SimpleRouter()
