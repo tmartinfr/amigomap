@@ -17,7 +17,7 @@ services:
             DB_PASSWORD: 'db'
             DB_HOST: 'db'
     db:
-        image: postgres:latest
+        image: postgres:9.6
         environment:
             POSTGRES_USER: db
             POSTGRES_PASSWORD: db
