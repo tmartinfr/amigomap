@@ -39,7 +39,7 @@ def test(c):
     """
     Run test suite
     """
-    c.run("flake8", pty=True)
+    c.run("flake8 -j 1", pty=True)
     c.run("pytest --ds config.settings.base", pty=True)
 
 
