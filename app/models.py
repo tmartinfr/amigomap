@@ -55,7 +55,6 @@ class Place(BaseModel):
     name = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=9, decimal_places=7)
     longitude = models.DecimalField(max_digits=10, decimal_places=7)
-    color = ColorField()
     google_place_id = models.CharField(max_length=1024, null=True, blank=True)
 
     public = FilterManager({"map__visibility": Map.Visibility.public.name})
