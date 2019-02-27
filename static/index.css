@@ -6,6 +6,8 @@
 
 #menu {
     grid-column: 1;
+    overflow:scroll;
+    height: 100%;
 }
 
 #map {

@@ -9,7 +9,13 @@
     </head>
     <body>
         <div id="main">
-            <div id="menu"></div>
+            <div id="menu">
+                <ul>
+                    <li v-for="place in place_list">
+                        {{ place.name }}
+                    </li>
+                </ul>
+            </div>
             <div id="map"></div>
         </div>
     </body>
