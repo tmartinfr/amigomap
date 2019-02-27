@@ -16,6 +16,7 @@ services:
             DB_USER: 'db'
             DB_PASSWORD: 'db'
             DB_HOST: 'db'
+            SECRET_KEY: 'secret'
     db:
         image: postgres:9.6
         environment:
