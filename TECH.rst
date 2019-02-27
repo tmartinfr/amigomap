@@ -1,7 +1,7 @@
 Initial setup for developers
 ============================
 - Run ``docker-compose up -d``
-- Run ``docker-compose exec app invoke populate-dev-db``
+- Run ``docker-compose exec app invoke populate``
 - Ensure domain names of URL returned by the last command resolv to ``127.0.0.1``
 - Run ``docker-compose exec app invoke run``
 - Open your browser to one of those URL !

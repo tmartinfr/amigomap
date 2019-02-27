@@ -10,7 +10,7 @@ def help(c):
 
 
 @task
-def populate_dev_db(c):
+def populate(c):
     """
     Prepare and fill development DB with random data
     """
