@@ -12,6 +12,7 @@ services:
               source: ./
               target: /home/app/app/
         environment:
+            # Remember to also update .circleci/config.yml
             DB_NAME: 'db'
             DB_USER: 'db'
             DB_PASSWORD: 'db'
