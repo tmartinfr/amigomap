@@ -8,6 +8,7 @@ USER app
 ENV PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 WORKDIR /tmp
+# Remember to also update .circleci/config.yml
 RUN wget https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tar.xz
 RUN echo "df6ec36011808205beda239c72f947cb Python-3.7.2.tar.xz" | md5sum -c
 RUN tar xf Python-3.7.2.tar.xz
