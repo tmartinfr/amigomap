@@ -51,4 +51,4 @@ paths:
       tags:
       - place
 servers:
-- url: ''
+- url: http://localhost:8000/

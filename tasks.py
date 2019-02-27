@@ -41,3 +41,11 @@ def test(c):
     """
     c.run("flake8")
     c.run("pytest -q")
+
+
+@task
+def openapi(c):
+    """
+    Generate OpenAPI schema
+    """
+    c.run("django-admin generateschema --url http://localhost:8000 >openapi.yml")
