@@ -19,6 +19,15 @@ class Migration(migrations.Migration):
             name="Evaluation",
             fields=[
                 (
+                    "uuid",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
                     "created",
                     model_utils.fields.AutoCreatedField(
                         default=django.utils.timezone.now,
@@ -35,15 +44,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("is_removed", models.BooleanField(default=False)),
-                (
-                    "uuid",
-                    models.UUIDField(
-                        default=uuid.uuid4,
-                        editable=False,
-                        primary_key=True,
-                        serialize=False,
-                    ),
-                ),
                 ("note", models.IntegerField()),
                 ("comment", models.TextField()),
                 (
@@ -61,6 +61,15 @@ class Migration(migrations.Migration):
             name="Map",
             fields=[
                 (
+                    "uuid",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
                     "created",
                     model_utils.fields.AutoCreatedField(
                         default=django.utils.timezone.now,
@@ -77,15 +86,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("is_removed", models.BooleanField(default=False)),
-                (
-                    "uuid",
-                    models.UUIDField(
-                        default=uuid.uuid4,
-                        editable=False,
-                        primary_key=True,
-                        serialize=False,
-                    ),
-                ),
                 (
                     "visibility",
                     models.CharField(
@@ -126,6 +126,15 @@ class Migration(migrations.Migration):
             name="Place",
             fields=[
                 (
+                    "uuid",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
                     "created",
                     model_utils.fields.AutoCreatedField(
                         default=django.utils.timezone.now,
@@ -142,15 +151,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("is_removed", models.BooleanField(default=False)),
-                (
-                    "uuid",
-                    models.UUIDField(
-                        default=uuid.uuid4,
-                        editable=False,
-                        primary_key=True,
-                        serialize=False,
-                    ),
-                ),
                 ("name", models.CharField(max_length=255)),
                 ("latitude", models.DecimalField(decimal_places=7, max_digits=9)),
                 ("longitude", models.DecimalField(decimal_places=7, max_digits=10)),
@@ -175,6 +175,15 @@ class Migration(migrations.Migration):
             name="Tag",
             fields=[
                 (
+                    "uuid",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
                     "created",
                     model_utils.fields.AutoCreatedField(
                         default=django.utils.timezone.now,
@@ -191,15 +200,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("is_removed", models.BooleanField(default=False)),
-                (
-                    "uuid",
-                    models.UUIDField(
-                        default=uuid.uuid4,
-                        editable=False,
-                        primary_key=True,
-                        serialize=False,
-                    ),
-                ),
                 ("name", models.CharField(max_length=255)),
                 (
                     "creator",
