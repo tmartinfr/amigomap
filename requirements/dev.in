@@ -1,6 +1,7 @@
 -r base.in
 
 coreapi
+coreapi-cli
 django-debug-toolbar
 django_extensions
 invoke
