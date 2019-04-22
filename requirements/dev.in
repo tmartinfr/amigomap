@@ -4,6 +4,8 @@ coreapi
 coreapi-cli
 django-debug-toolbar
 django_extensions
+django-stubs
+djangorestframework-stubs
 invoke
 ipdb
 isort
@@ -12,6 +14,7 @@ flake8
 flake8-bandit
 flake8-black
 flake8-bugbear
+mypy
 pep8-naming
 pip-compile-multi
 pytest-cov
