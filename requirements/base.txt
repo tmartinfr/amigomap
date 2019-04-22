@@ -6,10 +6,11 @@
 #    pip-compile-multi
 #
 django-model-utils==3.1.2
-django==2.1.7
+django==2.2
 djangorestframework==3.9.2
-psycopg2-binary==2.7.7
-python-slugify==3.0.0
-pytz==2018.9              # via django
+psycopg2-binary==2.8.2
+python-slugify==3.0.2
+pytz==2019.1              # via django
+sqlparse==0.3.0           # via django
 text-unidecode==1.2       # via python-slugify
 whitenoise==4.1.2
