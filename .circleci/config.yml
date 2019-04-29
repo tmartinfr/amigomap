@@ -53,8 +53,11 @@ jobs:
           command: |
             . ~/venv/bin/activate
             invoke test
+
       - run:
           name: check OpenAPI schema is up-to-date
+          environment:
+            DJANGO_SETTINGS_MODULE: config.settings.base
           command: |
             . ~/venv/bin/activate
             cp openapi.yml /tmp
