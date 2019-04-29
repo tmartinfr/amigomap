@@ -40,6 +40,7 @@ def test(c):
     Run test suite
     """
     c.run("flake8 -j 1", pty=True)
+    c.run("find app/ -name '*.py' | xargs isort --check-only --diff", pty=True)
     c.run("pytest --ds config.settings.base", pty=True)
 
 
