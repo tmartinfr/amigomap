@@ -35,14 +35,46 @@ def sh(c):
 
 
 @task
-def test(c):
+def flake8(c):
     """
-    Run test suite
+    Check linting
     """
     c.run("flake8 -j 1", pty=True)
+
+
+@task
+def isort(c):
+    """
+    Check imports
+    """
     c.run("find app/ -name '*.py' | xargs isort --check-only --diff", pty=True)
+
+
+@task
+def mypy(c):
+    """
+    Check type hints
+    """
     c.run("mypy --cache-dir=/dev/null --strict app", pty=True)
+
+
+@task
+def pytest(c):
+    """
+    Run unit tests
+    """
     c.run("pytest --ds config.settings.base", pty=True)
+
+
+@task
+def test(c):
+    """
+    Run all tests
+    """
+    flake8(c)
+    isort(c)
+    mypy(c)
+    pytest(c)
 
 
 @task
