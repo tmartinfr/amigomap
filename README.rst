@@ -1,3 +1,7 @@
+
+.. image:: https://circleci.com/gh/tmartinfr/amigomap/tree/master.svg?style=shield
+    :target: https://circleci.com/gh/tmartinfr/amigomap/tree/master
+
 Description
 ===========
 
