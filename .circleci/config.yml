@@ -48,12 +48,21 @@ jobs:
             - ~/venv
           key: v2-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/dev.txt" }}
 
-      # run tests!
       - run:
           name: run tests
           command: |
             . ~/venv/bin/activate
             invoke test
+
+      - run:
+          name: check OpenAPI schema is up-to-date
+          environment:
+            DJANGO_SETTINGS_MODULE: config.settings.base
+          command: |
+            . ~/venv/bin/activate
+            cp openapi.yml /tmp
+            invoke openapi
+            diff /tmp/openapi.yml openapi.yml
 
       - store_artifacts:
           path: test-reports
