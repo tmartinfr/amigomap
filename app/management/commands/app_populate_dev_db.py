@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from ...factories import UserFactory, MapFactory, PlaceFactory
+from ...factories import MapFactory, PlaceFactory, UserFactory
 
 
 class Command(BaseCommand):

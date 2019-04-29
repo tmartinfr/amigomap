@@ -6,6 +6,7 @@ django-debug-toolbar
 django_extensions
 invoke
 ipdb
+isort
 factory_boy
 flake8
 flake8-bandit

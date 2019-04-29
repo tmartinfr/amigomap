@@ -3,8 +3,7 @@ import uuid
 
 from django.contrib.auth.models import User
 from django.db import models
-
-from model_utils.models import TimeStampedModel, SoftDeletableModel
+from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 from .fields import ColorField
 from .managers import FilterManager

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Map, Tag, Place, Evaluation
+from .models import Evaluation, Map, Place, Tag
 
 # Register your models here.
 
