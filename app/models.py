@@ -9,7 +9,7 @@ from .fields import ColorField
 from .managers import FilterManager
 
 
-class BaseModel(TimeStampedModel, SoftDeletableModel):
+class BaseModel(TimeStampedModel, SoftDeletableModel, models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     creator = models.ForeignKey(User, on_delete=models.PROTECT, related_name="+")
 
@@ -35,7 +35,7 @@ class Map(BaseModel):
     objects = models.Manager()
     public = FilterManager({"visibility": Visibility.public.name})
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -44,7 +44,7 @@ class Tag(BaseModel):
     name = models.CharField(max_length=255)
     color = ColorField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -59,7 +59,7 @@ class Place(BaseModel):
     objects = models.Manager()
     public = FilterManager({"map__visibility": Map.Visibility.public.name})
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -68,5 +68,5 @@ class Evaluation(BaseModel):
     note = models.IntegerField()
     comment = models.TextField()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return "{} by {}".format(self.place.name, self.creator.username)

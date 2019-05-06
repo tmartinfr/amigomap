@@ -11,13 +11,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name="place",
-            name="color",
-            field=app.fields.ColorField(default="000000", max_length=6),
+            model_name="place", name="color", field=app.fields.ColorField()
         ),
         migrations.AddField(
-            model_name="tag",
-            name="color",
-            field=app.fields.ColorField(default="000000", max_length=6),
+            model_name="tag", name="color", field=app.fields.ColorField()
         ),
     ]

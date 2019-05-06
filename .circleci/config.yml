@@ -49,10 +49,28 @@ jobs:
           key: v2-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/dev.txt" }}
 
       - run:
-          name: run tests
+          name: Run flake8
           command: |
             . ~/venv/bin/activate
-            invoke test
+            invoke flake8
+
+      - run:
+          name: Run isort
+          command: |
+            . ~/venv/bin/activate
+            invoke isort
+
+      - run:
+          name: Run mypy
+          command: |
+            . ~/venv/bin/activate
+            invoke mypy
+
+      - run:
+          name: Run pytest
+          command: |
+            . ~/venv/bin/activate
+            invoke pytest
 
       - run:
           name: check OpenAPI schema is up-to-date
