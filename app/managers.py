@@ -1,6 +1,7 @@
+from typing import Dict
+
 from django.db import models
 from django.db.models import QuerySet
-from typing import Dict
 
 
 class FilterManager(models.Manager):

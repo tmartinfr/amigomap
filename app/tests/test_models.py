@@ -1,5 +1,6 @@
-from django.test import TestCase
 from typing import Any
+
+from django.test import TestCase
 
 from ..factories import MapFactory
 from ..models import Map

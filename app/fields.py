@@ -1,8 +1,8 @@
 import re
+from typing import Any
 
 from django.core.validators import RegexValidator
 from django.db import models
-from typing import Any
 
 
 class ColorValidator(RegexValidator):

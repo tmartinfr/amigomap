@@ -1,8 +1,8 @@
+from typing import Any
 from urllib.parse import urlencode, urljoin
 
 from django.urls import reverse
 from rest_framework import serializers
-from typing import Any
 
 from ..models import Map, Place
 
