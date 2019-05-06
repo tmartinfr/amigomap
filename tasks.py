@@ -55,7 +55,7 @@ def mypy(c):
     """
     Check type hints
     """
-    c.run("mypy --cache-dir=/dev/null app", pty=True)
+    c.run("mypy app", pty=True)
 
 
 @task
