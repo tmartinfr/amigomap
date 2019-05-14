@@ -12,7 +12,7 @@
             <div id="menu">
                 <ul>
                     <li v-for="place in place_list">
-                        {{ place.name }}
+                        <a href="#" v-on:click="centerMapOn(place)">{{ place.name }}</a>
                     </li>
                 </ul>
             </div>
