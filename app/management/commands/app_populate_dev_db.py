@@ -13,9 +13,9 @@ class Command(BaseCommand):
     MAP_SLUGS = ("resto", "coworking", "running")
 
     AIX_PLACES = (
-        ('Piadina', '43.529620', '5.444722'),
-        ('Maison Nosh', '43.526788', '5.449337'),
-        ('La Mie Dinette', '43.528581', '5.439296'),
+        ("Piadina", "43.529620", "5.444722"),
+        ("Maison Nosh", "43.526788", "5.449337"),
+        ("La Mie Dinette", "43.528581", "5.439296"),
     )
 
     def _create_admin(self):
@@ -31,10 +31,15 @@ class Command(BaseCommand):
         """
         Hidden Aix-en-Provence map!
         """
-        map = self._create_map('aix', admin)
+        map = self._create_map("aix", admin)
         for place in self.AIX_PLACES:
-            PlaceFactory.create(map=map, creator=admin, name=place[0],
-                                latitude=place[1], longitude=place[2])
+            PlaceFactory.create(
+                map=map,
+                creator=admin,
+                name=place[0],
+                latitude=place[1],
+                longitude=place[2],
+            )
 
     def handle(self, *args, **kwargs):
         admin = self._create_admin()
