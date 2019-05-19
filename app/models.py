@@ -4,7 +4,7 @@ from typing import Tuple
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, Max, Min
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 from .fields import ColorField
@@ -47,6 +47,21 @@ class Map(BaseModel):
     def center(self) -> Tuple[float, float]:
         coord = self.place_set.aggregate(Avg("longitude"), Avg("latitude"))
         return (coord["latitude__avg"], coord["longitude__avg"])
+
+    def bounds(self) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+        """
+        Returns tuple of top-left and bottom-right map corners.
+        """
+        bounds = self.place_set.aggregate(
+            Min("longitude"),
+            Min("latitude"),
+            Max("longitude"),
+            Max("latitude"),
+        )
+        return (
+            (bounds["latitude__max"], bounds["longitude__min"]),
+            (bounds["latitude__min"], bounds["longitude__max"]),
+        )
 
 
 class Tag(BaseModel):
