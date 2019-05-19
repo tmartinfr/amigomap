@@ -1,6 +1,14 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
 #main {
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 20% 80%;
     height: 100%;
 }
 

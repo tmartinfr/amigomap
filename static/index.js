@@ -1,12 +1,14 @@
 new Vue({
     el: '#main',
     data: {
+        map_name: "",
         place_list: []
     },
     mounted() {
         axios.get('/api/map/bydomain/')
             .then(response => {
-                let map_bounds = response.data['bounds']
+                let map_bounds = response.data['bounds'];
+                this.map_name = response.data['name'];
                 this.map = L.map('map').fitBounds(map_bounds);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
                 axios.get(response.data['url_place_list'])
