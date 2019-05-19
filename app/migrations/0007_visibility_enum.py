@@ -13,7 +13,8 @@ class Migration(migrations.Migration):
                                 type visibility using visibility::visibility;
             """,
             """
-            alter table app_map alter column visibility type character varying(32);
+            alter table app_map
+                alter column visibility type character varying(32);
             drop type visibility;
             """,
         )

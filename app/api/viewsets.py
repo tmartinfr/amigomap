@@ -52,7 +52,8 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                 required=True,
                 location="query",
                 schema=coreschema.String(
-                    title="uuid", description="A UUID string identifying the map."
+                    title="uuid",
+                    description="A UUID string identifying the map.",
                 ),
             )
         ]

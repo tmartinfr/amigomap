@@ -19,13 +19,17 @@ class Command(BaseCommand):
     )
 
     def _create_admin(self):
-        admin = UserFactory.create(is_staff=True, is_superuser=True, username="admin")
+        admin = UserFactory.create(
+            is_staff=True, is_superuser=True, username="admin"
+        )
         admin.set_password("admin")
         admin.save()
         return admin
 
     def _create_map(self, slug, creator):
-        return MapFactory.create(slug=slug, name=slug.capitalize(), creator=creator)
+        return MapFactory.create(
+            slug=slug, name=slug.capitalize(), creator=creator
+        )
 
     def _create_aix_map(self, admin):
         """
