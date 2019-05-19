@@ -10,7 +10,7 @@ from ..models import Map, Place
 class MapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Map
-        fields = ("uuid", "name", "url_place_list")
+        fields = ("uuid", "name", "url_place_list", "center")
 
     url_place_list: Any = serializers.SerializerMethodField()
 

@@ -1,8 +1,10 @@
 import enum
 import uuid
+from typing import Tuple
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Avg
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 from .fields import ColorField
@@ -37,6 +39,10 @@ class Map(BaseModel):
 
     def __str__(self) -> str:
         return self.name
+
+    def center(self) -> Tuple[float, float]:
+        coord = self.place_set.aggregate(Avg("longitude"), Avg("latitude"))
+        return (coord["latitude__avg"], coord["longitude__avg"])
 
 
 class Tag(BaseModel):

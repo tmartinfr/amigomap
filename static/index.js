@@ -4,10 +4,11 @@ new Vue({
         place_list: []
     },
     mounted() {
-        this.map = L.map('map').setView([0, 0], 2);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
         axios.get('/api/map/bydomain/')
             .then(response => {
+                let map_center = response.data['center']
+                this.map = L.map('map').setView(map_center, 2);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
                 axios.get(response.data['url_place_list'])
                     .then(response => {
                         response.data.forEach(place => {
