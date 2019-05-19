@@ -82,4 +82,6 @@ def openapi(c):
     """
     Generate OpenAPI schema
     """
-    c.run("django-admin generateschema --url http://localhost:8000 >openapi.yml")
+    c.run(
+        "django-admin generateschema --url http://localhost:8000 >openapi.yml"
+    )

@@ -15,7 +15,9 @@ class MapSerializer(serializers.ModelSerializer):
     url_place_list: Any = serializers.SerializerMethodField()
 
     def get_url_place_list(self, obj: Map) -> str:
-        return urljoin(reverse("place-list"), "?" + urlencode({"map_uuid": obj.uuid}))
+        return urljoin(
+            reverse("place-list"), "?" + urlencode({"map_uuid": obj.uuid})
+        )
 
 
 class PlaceSerializer(serializers.ModelSerializer):

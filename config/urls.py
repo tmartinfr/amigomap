@@ -34,6 +34,8 @@ if settings.DEBUG:
         path("api/", schema_view),
         path(
             "api/doc/",
-            include_docs_urls(title="API documentation", permission_classes=[AllowAny]),
+            include_docs_urls(
+                title="API documentation", permission_classes=[AllowAny]
+            ),
         ),
     ]
