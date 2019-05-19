@@ -13,8 +13,9 @@
         <script defer src="/index.js"></script>
     </head>
     <body>
-        <div id="main">
+        <div id="main" class="container-fluid">
             <div id="menu">
+                <h1>{{ map_name }}</h1>
                 <ul>
                     <li v-for="place in place_list">
                         <a href="#" v-on:click="centerMapOn(place)">{{ place.name }}</a>
