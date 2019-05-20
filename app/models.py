@@ -12,9 +12,7 @@ from .managers import FilterManager
 
 
 class BaseModel(TimeStampedModel, SoftDeletableModel, models.Model):
-    uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     creator = models.ForeignKey(
         User, on_delete=models.PROTECT, related_name="+"
     )

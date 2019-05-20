@@ -40,7 +40,7 @@ class PlaceRetrieveViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
 
 class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """
-    Return places belonging to the specified map_uuid.
+    Return places belonging to the specified map_id.
     """
 
     permission_classes = (AllowAny,)
@@ -48,27 +48,24 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     schema = AutoSchema(
         manual_fields=[
             coreapi.Field(
-                "map_uuid",
+                "map_id",
                 required=True,
                 location="query",
-                schema=coreschema.String(
-                    title="uuid",
-                    description="A UUID string identifying the map.",
-                ),
+                schema=coreschema.String(description="Map identifier"),
             )
         ]
     )
 
     def get_queryset(self) -> QuerySet:
         try:
-            map_uuid = UUID(self.request.query_params["map_uuid"])
+            map_id = UUID(self.request.query_params["map_id"])
         except KeyError:
-            raise ParseError("Missing map_uuid filter")
+            raise ParseError("Missing map_id filter")
         except ValueError:
-            raise ParseError("map_uuid is not a valid UUID")
+            raise ParseError("map_id is not a valid UUID")
 
         try:
-            map = Map.public.get(uuid=map_uuid)
+            map = Map.public.get(id=map_id)
         except Map.DoesNotExist:
             raise NotFound("Map not found")
 
