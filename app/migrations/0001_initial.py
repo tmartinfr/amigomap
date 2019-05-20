@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             name="Evaluation",
             fields=[
                 (
-                    "uuid",
+                    "id",
                     models.UUIDField(
                         default=uuid.uuid4,
                         editable=False,
@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             name="Map",
             fields=[
                 (
-                    "uuid",
+                    "id",
                     models.UUIDField(
                         default=uuid.uuid4,
                         editable=False,
@@ -127,7 +127,7 @@ class Migration(migrations.Migration):
             name="Place",
             fields=[
                 (
-                    "uuid",
+                    "id",
                     models.UUIDField(
                         default=uuid.uuid4,
                         editable=False,
@@ -183,7 +183,7 @@ class Migration(migrations.Migration):
             name="Tag",
             fields=[
                 (
-                    "uuid",
+                    "id",
                     models.UUIDField(
                         default=uuid.uuid4,
                         editable=False,
