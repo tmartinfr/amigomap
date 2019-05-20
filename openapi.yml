@@ -4,51 +4,51 @@ info:
   version: ''
 openapi: 3.0.0
 paths:
-  /api/map/bydomain/:
+  /api/maps/bydomain/:
     get:
       description: Return map matching the request HTTP Host header.
-      operationId: map_bydomain
+      operationId: maps_bydomain
       tags:
-      - map
-  /api/map/{uuid}/:
+      - maps
+  /api/maps/{id}/:
     get:
-      operationId: map_read
+      operationId: maps_read
       parameters:
       - in: path
-        name: uuid
+        name: id
         required: true
         schema:
           description: A UUID string identifying this map.
-          title: uuid
+          title: id
           type: string
       tags:
-      - map
-  /api/place/:
+      - maps
+  /api/places/:
     get:
-      description: Return places belonging to the specified map_uuid.
-      operationId: place_list
+      description: Return places belonging to the specified map_id.
+      operationId: places_list
       parameters:
       - in: query
-        name: map_uuid
+        name: map_id
         required: true
         schema:
-          description: A UUID string identifying the map.
-          title: uuid
+          description: Map identifier
+          title: ''
           type: string
       tags:
-      - place
-  /api/place/{uuid}/:
+      - places
+  /api/places/{id}/:
     get:
-      operationId: place_read
+      operationId: places_read
       parameters:
       - in: path
-        name: uuid
+        name: id
         required: true
         schema:
           description: A UUID string identifying this place.
-          title: uuid
+          title: id
           type: string
       tags:
-      - place
+      - places
 servers:
 - url: http://localhost:8000/
