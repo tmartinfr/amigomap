@@ -94,5 +94,6 @@ def openapi_generate_schema(c):
     Generate OpenAPI schema
     """
     c.run(
-        "django-admin generateschema --url http://localhost:8000 >openapi.yml"
+        "django-admin generateschema --url http://localhost:8000 >openapi.yml",
+        env={"DJANGO_SETTINGS_MODULE": "config.settings.base"},
     )
