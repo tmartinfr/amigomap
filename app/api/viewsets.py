@@ -51,9 +51,7 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                 "map_id",
                 required=True,
                 location="query",
-                schema=coreschema.String(
-                    description="Map identifier",
-                ),
+                schema=coreschema.String(description="Map identifier"),
             )
         ]
     )
