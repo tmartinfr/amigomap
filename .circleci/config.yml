@@ -73,10 +73,10 @@ jobs:
             invoke pytest
 
       - run:
-          name: Run openapi_check_schema
+          name: Run openapi-check-schema
           command: |
             . ~/venv/bin/activate
-            invoke openapi_check_schema
+            invoke openapi-check-schema
 
       - store_artifacts:
           path: test-reports
