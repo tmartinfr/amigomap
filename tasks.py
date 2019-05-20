@@ -73,7 +73,10 @@ def pytest(c):
     """
     Run unit tests
     """
-    c.run("pytest --ds config.settings.base", pty=True)
+    c.run(
+        "pytest --ds config.settings.base --cov=app --cov-fail-under=100",
+        pty=True,
+    )
 
 
 @task
