@@ -10,13 +10,13 @@ from ..models import Map, Place
 class MapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Map
-        fields = ("id", "name", "url_place_list", "center", "bounds")
+        fields = ("id", "name", "places", "center", "bounds")
 
-    url_place_list: Any = serializers.SerializerMethodField()
+    places: Any = serializers.SerializerMethodField()
 
-    def get_url_place_list(self, obj: Map) -> str:
+    def get_places(self, obj: Map) -> str:
         return urljoin(
-            reverse("place-list"), "?" + urlencode({"map_id": obj.id})
+            reverse("places-list"), "?" + urlencode({"map_id": obj.id})
         )
 
 
