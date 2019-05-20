@@ -73,14 +73,10 @@ jobs:
             invoke pytest
 
       - run:
-          name: check OpenAPI schema is up-to-date
-          environment:
-            DJANGO_SETTINGS_MODULE: config.settings.base
+          name: Run openapi_check_schema
           command: |
             . ~/venv/bin/activate
-            cp openapi.yml /tmp
-            invoke openapi
-            diff /tmp/openapi.yml openapi.yml
+            invoke openapi_check_schema
 
       - store_artifacts:
           path: test-reports
