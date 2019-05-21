@@ -92,4 +92,6 @@ class Evaluation(BaseModel):
     comment = models.TextField()
 
     def __str__(self) -> str:
-        return "{} by {}".format(self.place.name, self.creator.username)
+        return "Evaluation of {} by {}".format(
+            self.place.name, self.creator.username
+        )
