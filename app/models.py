@@ -39,6 +39,9 @@ class Map(BaseModel):
     objects = models.Manager()
     public = FilterManager({"visibility": Visibility.public.name})
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self) -> str:
         return self.name
 
@@ -67,6 +70,9 @@ class Tag(BaseModel):
     name = models.CharField(max_length=255)
     color = ColorField()
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self) -> str:
         return self.name
 
@@ -82,6 +88,9 @@ class Place(BaseModel):
     objects = models.Manager()
     public = FilterManager({"map__visibility": Map.Visibility.public.name})
 
+    class Meta:
+        ordering = ['-created']
+
     def __str__(self) -> str:
         return self.name
 
@@ -90,6 +99,9 @@ class Evaluation(BaseModel):
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
     note = models.IntegerField()
     comment = models.TextField()
+
+    class Meta:
+        ordering = ['-created']
 
     def __str__(self) -> str:
         return "Evaluation of {} by {}".format(
