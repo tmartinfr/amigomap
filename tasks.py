@@ -74,7 +74,7 @@ def pytest(c):
     Run unit tests
     """
     c.run(
-        "pytest --ds config.settings.base "
+        "pytest --ds config.settings.test "
         "--cov=app --cov-fail-under=100 --no-cov-on-fail",
         pty=True,
     )
