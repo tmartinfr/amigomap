@@ -7,7 +7,7 @@ from ..factories import MapFactory, PlaceFactory
 
 
 class MapApiTest(TestCase):
-    def test_payload(self) -> None:
+    def test_bydomain(self) -> None:
         map = MapFactory(slug="resto")
         PlaceFactory(map=map, latitude=2, longitude=2)
 
@@ -26,7 +26,7 @@ class MapApiTest(TestCase):
 
 
 class PlaceApiTest(TestCase):
-    def test_payload(self) -> None:
+    def test_list(self) -> None:
         map = MapFactory(slug="resto")
         places = PlaceFactory.create_batch(3, map=map)
 
@@ -47,5 +47,25 @@ class PlaceApiTest(TestCase):
             )
             for place in reversed(places)
         ]
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, expected_data)
+
+    def test_retrieve(self) -> None:
+        map = MapFactory(slug="resto")
+        place = PlaceFactory.create(map=map)
+
+        c = Client()
+        resp = c.get(
+            "/api/places/{}/".format(place.id), HTTP_HOST="resto.localhost"
+        )
+
+        expected_data = OrderedDict(
+            [
+                ("id", str(place.id)),
+                ("name", place.name),
+                ("latitude", "{:.7f}".format(place.latitude)),
+                ("longitude", "{:.7f}".format(place.longitude)),
+            ]
+        )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data, expected_data)
