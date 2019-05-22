@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from django.test import Client, TestCase
 from rest_framework import status
 
@@ -19,5 +21,31 @@ class MapApiTest(TestCase):
             "bounds": ((2, 2), (2, 2)),
         }
 
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, expected_data)
+
+
+class PlaceApiTest(TestCase):
+    def test_payload(self) -> None:
+        map = MapFactory(slug="resto")
+        places = PlaceFactory.create_batch(3, map=map)
+
+        c = Client()
+        resp = c.get(
+            "/api/places/?map_id={}".format(map.id),
+            HTTP_HOST="resto.localhost",
+        )
+
+        expected_data = [
+            OrderedDict(
+                [
+                    ("id", str(place.id)),
+                    ("name", place.name),
+                    ("latitude", "{:.7f}".format(place.latitude)),
+                    ("longitude", "{:.7f}".format(place.longitude)),
+                ]
+            )
+            for place in reversed(places)
+        ]
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data, expected_data)
