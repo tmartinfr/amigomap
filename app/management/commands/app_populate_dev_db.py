@@ -53,9 +53,7 @@ class Command(BaseCommand):
                 latitude=place[1],
                 longitude=place[2],
             )
-            EvaluationFactory.create(
-                creator=admin, place=p, note=place[3]
-            )
+            EvaluationFactory.create(creator=admin, place=p, note=place[3])
 
     def handle(self, *args, **kwargs):
         admin = self._create_admin()
