@@ -94,6 +94,9 @@ class Place(BaseModel):
     def __str__(self) -> str:
         return self.name
 
+    def note_mean(self):
+        return self.evaluation_set.aggregate(Avg("note"))["note__avg"]
+
 
 class Evaluation(BaseModel):
     place = models.ForeignKey(Place, on_delete=models.CASCADE)

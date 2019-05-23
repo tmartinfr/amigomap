@@ -1,6 +1,11 @@
 from django.core.management.base import BaseCommand
 
-from ...factories import MapFactory, PlaceFactory, UserFactory
+from ...factories import (
+    EvaluationFactory,
+    MapFactory,
+    PlaceFactory,
+    UserFactory,
+)
 
 
 class Command(BaseCommand):
@@ -13,9 +18,13 @@ class Command(BaseCommand):
     MAP_SLUGS = ("resto", "coworking", "running")
 
     AIX_PLACES = (
-        ("Piadina", "43.529620", "5.444722"),
-        ("Maison Nosh", "43.526788", "5.449337"),
-        ("La Mie Dinette", "43.528581", "5.439296"),
+        ("Piadina", "43.529620", "5.444722", 10),
+        ("Maison Nosh", "43.526788", "5.449337", 10),
+        ("La Mie Dinette", "43.528581", "5.439296", 10),
+        ("Sous les platanes", "43.529315", "5.449572", 5),
+        ("Terminus", "43.531727", "5.447791", 5),
+        ("Le bourbi", "43.523917", "5.452211", 2),
+        ("Pousse au crime", "43.523574", "5.439723", 2),
     )
 
     def _create_admin(self):
@@ -37,12 +46,15 @@ class Command(BaseCommand):
         """
         map = self._create_map("aix", admin)
         for place in self.AIX_PLACES:
-            PlaceFactory.create(
+            p = PlaceFactory.create(
                 map=map,
                 creator=admin,
                 name=place[0],
                 latitude=place[1],
                 longitude=place[2],
+            )
+            EvaluationFactory.create(
+                creator=admin, place=p, note=place[3]
             )
 
     def handle(self, *args, **kwargs):
