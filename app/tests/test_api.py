@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from typing import Any
 
 from django.test import Client, TestCase
 from rest_framework import status
@@ -12,7 +13,7 @@ class MapApiTest(TestCase):
         PlaceFactory(map=map, latitude=2, longitude=2)
 
         c = Client()
-        resp = c.get("/api/maps/bydomain/", HTTP_HOST="resto.localhost")
+        resp: Any = c.get("/api/maps/bydomain/", HTTP_HOST="resto.localhost")
         expected_data = {
             "id": str(map.id),
             "name": map.name,
@@ -31,7 +32,7 @@ class PlaceApiTest(TestCase):
         places = PlaceFactory.create_batch(3, map=map)
 
         c = Client()
-        resp = c.get(
+        resp: Any = c.get(
             "/api/places/?map_id={}".format(map.id),
             HTTP_HOST="resto.localhost",
         )
@@ -55,7 +56,7 @@ class PlaceApiTest(TestCase):
         place = PlaceFactory.create(map=map)
 
         c = Client()
-        resp = c.get(
+        resp: Any = c.get(
             "/api/places/{}/".format(place.id), HTTP_HOST="resto.localhost"
         )
 
