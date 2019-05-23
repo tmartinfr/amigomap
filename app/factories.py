@@ -1,4 +1,5 @@
 import factory
+import factory.fuzzy
 from slugify import slugify
 
 from . import models
@@ -25,6 +26,14 @@ class MapFactory(factory.DjangoModelFactory):
     slug = factory.LazyAttribute(lambda o: slugify(o.name))
 
 
+class TagFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = models.Tag
+
+    creator = factory.SubFactory(UserFactory)
+    map = factory.SubFactory(MapFactory)
+
+
 class PlaceFactory(factory.DjangoModelFactory):
     class Meta:
         model = models.Place
@@ -34,3 +43,13 @@ class PlaceFactory(factory.DjangoModelFactory):
     name = factory.Faker("company")
     latitude = factory.Faker("latitude")
     longitude = factory.Faker("longitude")
+
+
+class EvaluationFactory(factory.DjangoModelFactory):
+    class Meta:
+        model = models.Evaluation
+
+    creator = factory.SubFactory(UserFactory)
+    place = factory.SubFactory(PlaceFactory)
+    note = factory.fuzzy.FuzzyInteger(0, 5)
+    comment = factory.fuzzy.FuzzyText()
