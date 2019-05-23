@@ -75,7 +75,7 @@ def pytest(c):
     """
     c.run(
         "pytest --ds config.settings.test "
-        "--cov=app --cov-fail-under=100 --no-cov-on-fail",
+        "--cov=app --cov-fail-under=97 --no-cov-on-fail",
         pty=True,
     )
 
