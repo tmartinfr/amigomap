@@ -14,7 +14,23 @@ new Vue({
                 axios.get(response.data['places'])
                     .then(response => {
                         response.data.forEach(place => {
-                            place.marker = L.marker([place.latitude, place.longitude]).addTo(this.map).bindPopup(place.name).openPopup();
+                            var color = 'blue';
+                            if (place.note_mean < 4) {
+                                color = 'red';
+                            } else if (place.note_mean < 7) {
+                                color = 'orange';
+                            } else if (place.note_mean >= 7) {
+                                color = 'green';
+                            }
+                            var icon = new L.Icon({
+                                iconUrl: `https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${color}.png`,
+                                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                                iconSize: [25, 41],
+                                iconAnchor: [12, 41],
+                                popupAnchor: [1, -34],
+                                shadowSize: [41, 41]
+                            });
+                            place.marker = L.marker([place.latitude, place.longitude], {icon: icon}).addTo(this.map).bindPopup(place.name).openPopup();
                             this.place_list.push(place);
                         });
                     });

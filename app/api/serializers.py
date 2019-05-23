@@ -23,4 +23,4 @@ class MapSerializer(serializers.ModelSerializer):
 class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
-        fields = ("id", "name", "latitude", "longitude")
+        fields = ("id", "name", "latitude", "longitude", "note_mean")

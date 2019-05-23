@@ -1,6 +1,6 @@
 import enum
 import uuid
-from typing import Tuple
+from typing import Optional, Tuple
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -93,6 +93,12 @@ class Place(BaseModel):
 
     def __str__(self) -> str:
         return self.name
+
+    def note_mean(self) -> Optional[int]:
+        avg = self.evaluation_set.aggregate(Avg("note"))["note__avg"]
+        if not avg:
+            return None
+        return int(avg)
 
 
 class Evaluation(BaseModel):
