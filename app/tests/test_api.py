@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from uuid import uuid4
 from typing import Any
 
 from django.test import Client, TestCase
@@ -95,3 +96,29 @@ class PlaceApiTest(TestCase):
         )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data, expected_data)
+
+    def test_list_missing_map_id(self) -> None:
+        c = Client()
+        resp: Any = c.get("/api/places/", HTTP_HOST="resto.localhost")
+
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(resp.json(), {"detail": "Missing map_id filter"})
+
+    def test_list_map_id_not_json(self) -> None:
+        c = Client()
+        resp: Any = c.get(
+            "/api/places/?map_id={}".format("42"), HTTP_HOST="resto.localhost"
+        )
+
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(resp.json(), {"detail": "map_id is not a valid UUID"})
+
+    def test_list_map_id_not_found(self) -> None:
+        c = Client()
+        resp: Any = c.get(
+            "/api/places/?map_id={}".format(uuid4()),
+            HTTP_HOST="resto.localhost",
+        )
+
+        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertEqual(resp.json(), {"detail": "Map not found"})
