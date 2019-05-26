@@ -1,6 +1,6 @@
 from collections import OrderedDict
-from uuid import uuid4
 from typing import Any
+from uuid import uuid4
 
 from django.test import Client, TestCase
 from rest_framework import status

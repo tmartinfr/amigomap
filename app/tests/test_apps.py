@@ -5,6 +5,6 @@ from app.apps import AppConfig
 
 
 class AppConfigTest(TestCase):
-    def test_apps(self):
+    def test_apps(self) -> None:
         self.assertEqual(AppConfig.name, "app")
         self.assertEqual(apps.get_app_config("app").name, "app")
