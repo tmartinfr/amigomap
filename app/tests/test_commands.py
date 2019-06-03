@@ -1,3 +1,5 @@
+from typing import Any
+
 from decimal import Decimal
 from io import StringIO
 from tempfile import NamedTemporaryFile
@@ -10,7 +12,7 @@ from ..models import Map
 
 
 class CommandsTest(TestCase):
-    def test_app_populate_dev_db(self):
+    def test_app_populate_dev_db(self) -> None:
         out = StringIO()
 
         call_command("app_populate_dev_db", stdout=out)
@@ -23,10 +25,9 @@ class CommandsTest(TestCase):
         )
         self.assertEqual(out.getvalue(), expected_output)
 
-    def test_kml_import(self):
+    def test_kml_import(self) -> None:
         out = StringIO()
         user = UserFactory.create()
-        kml_file = "/home/app/app/yellow.kml"
         kml_file = NamedTemporaryFile(suffix=".kml")
         kml_file.write(
             b"""<?xml version="1.0" encoding="UTF-8"?>
@@ -76,7 +77,7 @@ class CommandsTest(TestCase):
         )
 
         self.assertEqual(out.getvalue(), "")
-        map = Map.objects.first()
+        map: Any = Map.objects.first()
         self.assertEqual(map.name, "Resto map")
         expected_places = [
             ("Pousse au crime", Decimal("43.5266387"), Decimal("5.4541111")),
