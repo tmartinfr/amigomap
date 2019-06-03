@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 from ...factories import (
@@ -6,6 +7,7 @@ from ...factories import (
     PlaceFactory,
     UserFactory,
 )
+from ...models import Map
 
 
 class Command(BaseCommand):
@@ -27,20 +29,21 @@ class Command(BaseCommand):
         ("Pousse au crime", "43.523574", "5.439723", 2),
     )
 
-    def _create_admin(self):
-        admin = UserFactory.create(
+    def _create_admin(self) -> User:
+        admin: User = UserFactory.create(
             is_staff=True, is_superuser=True, username="admin"
         )
         admin.set_password("admin")
         admin.save()
         return admin
 
-    def _create_map(self, slug, creator):
-        return MapFactory.create(
+    def _create_map(self, slug: str, creator: User) -> Map:
+        map: Map = MapFactory.create(
             slug=slug, name=slug.capitalize(), creator=creator
         )
+        return map
 
-    def _create_aix_map(self, admin):
+    def _create_aix_map(self, admin: User) -> None:
         """
         Hidden Aix-en-Provence map!
         """
@@ -55,7 +58,7 @@ class Command(BaseCommand):
             )
             EvaluationFactory.create(creator=admin, place=p, note=place[3])
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args: None, **kwargs: None) -> None:
         admin = self._create_admin()
         for slug in self.MAP_SLUGS:
             map = self._create_map(slug, admin)
