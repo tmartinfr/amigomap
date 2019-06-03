@@ -1,10 +1,10 @@
+from typing import Any, List, Tuple
+
 from defusedxml import minidom
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand, CommandParser
-from typing import Any, List, Tuple
 
 from ...factories import MapFactory, PlaceFactory
-
 
 Places = List[Tuple[str, str, str]]
 

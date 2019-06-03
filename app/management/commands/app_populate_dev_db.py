@@ -7,7 +7,6 @@ from ...factories import (
     PlaceFactory,
     UserFactory,
 )
-
 from ...models import Map
 
 
