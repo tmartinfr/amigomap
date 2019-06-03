@@ -1,8 +1,7 @@
-from typing import Any
-
 from decimal import Decimal
 from io import StringIO
 from tempfile import NamedTemporaryFile
+from typing import Any
 
 from django.core.management import call_command
 from django.test import TestCase
