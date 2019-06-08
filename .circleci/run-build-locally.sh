@@ -4,4 +4,4 @@ curl --user ${CIRCLE_TOKEN}: \
     --form revision=master\
     --form config=@config.yml \
     --form notify=false \
-        https://circleci.com/api/v1.1/project/github/oopss/amigomap/tree/master
+        https://circleci.com/api/v1.1/project/github/tmartinfr/amigomap/tree/master
