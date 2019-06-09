@@ -22,7 +22,7 @@ this line to your ``/etc/hosts`` file : ::
 
     127.0.0.1 resto.localhost coworking.localhost running.localhost
 
-Then, check and execute the ``./quickstart`` script (Docker powered).
+Then, check and execute the ``./bin/quickstart`` script (Docker powered).
 
 Finally, try to open one the example map in your browser, for example
 http://coworking.localhost:8000/.
