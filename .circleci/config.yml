@@ -2,82 +2,118 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
-version: 2
-jobs:
-  build:
+
+defaults: &defaults
     docker:
-      # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.7.3
-        environment:
-            PYTHONPATH: .
-            DB_NAME: circle_test
-            DB_USER: db
-            DB_PASSWORD: db
-            DB_HOST: localhost
-            SECRET_KEY: secret
+        # specify the version you desire here
+        # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
+        - image: circleci/python:3.7.3
+          environment:
+              PYTHONPATH: .
+              DB_NAME: circle_test
+              DB_USER: db
+              DB_PASSWORD: db
+              DB_HOST: localhost
+              SECRET_KEY: secret
 
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:9.6
-        environment:
-            POSTGRES_USER: db
-            POSTGRES_PASSWORD: db
+        # Specify service dependencies here if necessary
+        # CircleCI maintains a library of pre-built images
+        # documented at https://circleci.com/docs/2.0/circleci-images/
+        - image: circleci/postgres:9.6
+          environment:
+              POSTGRES_USER: db
+              POSTGRES_PASSWORD: db
 
     working_directory: ~/repo
 
-    steps:
-      - checkout
+version: 2
+jobs:
+    checkout:
+        <<: *defaults
+        steps:
+            - checkout
+            - persist_to_workspace:
+                root: ..
+                paths:
+                    - .
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v2-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/dev.txt" }}
+    build:
+        <<: *defaults
+        steps:
+            - attach_workspace:
+                at: ..
 
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv ~/venv
-            . ~/venv/bin/activate
-            pip install -r requirements/dev.txt
+            - restore_cache:
+                keys:
+                  - v2-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/dev.txt" }}
 
-      - save_cache:
-          paths:
-            - ~/venv
-          key: v2-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/dev.txt" }}
+            - run:
+                name: install dependencies
+                command: |
+                  python3 -m venv ~/venv
+                  . ~/venv/bin/activate
+                  find /home
+                  pip install -r requirements/dev.txt
 
-      - run:
-          name: Run flake8
-          command: |
-            . ~/venv/bin/activate
-            invoke flake8
+            - save_cache:
+                paths:
+                  - ~/venv
+                key: v2-dependencies-{{ checksum "requirements/base.txt" }}-{{ checksum "requirements/dev.txt" }}
 
-      - run:
-          name: Run isort
-          command: |
-            . ~/venv/bin/activate
-            invoke isort
+            - persist_to_workspace:
+                root: ..
+                paths:
+                    - .
 
-      - run:
-          name: Run mypy
-          command: |
-            . ~/venv/bin/activate
-            invoke mypy
+    test:
+        <<: *defaults
+        steps:
+            - attach_workspace:
+                at: ..
 
-      - run:
-          name: Run pytest
-          command: |
-            . ~/venv/bin/activate
-            invoke pytest
+            - run:
+                name: Run flake8
+                command: |
+                    find /home
+                    . ~/venv/bin/activate
+                    invoke flake8
 
-      - run:
-          name: Run openapi-check-schema
-          command: |
-            . ~/venv/bin/activate
-            invoke openapi-check-schema
+            - run:
+                name: Run isort
+                command: |
+                    . ~/venv/bin/activate
+                    invoke isort
 
-      - store_artifacts:
-          path: test-reports
-          destination: test-reports
+            - run:
+                name: Run mypy
+                command: |
+                    . ~/venv/bin/activate
+                    invoke mypy
+
+            - run:
+                name: Run pytest
+                command: |
+                    . ~/venv/bin/activate
+                    invoke pytest
+
+            - run:
+                name: Run openapi-check-schema
+                command: |
+                    . ~/venv/bin/activate
+                    invoke openapi-check-schema
+
+            - store_artifacts:
+                path: test-reports
+                destination: test-reports
+
+workflows:
+    version: 2
+    build-test-deploy:
+        jobs:
+            - checkout
+            - build:
+                requires:
+                    - checkout
+            - test:
+                requires:
+                    - build
