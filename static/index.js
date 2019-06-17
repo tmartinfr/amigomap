@@ -10,7 +10,7 @@ new Vue({
                 let map_bounds = response.data['bounds'];
                 this.map_name = response.data['name'];
                 this.map = L.map('map').fitBounds(map_bounds);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(this.map);
+                L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {}).addTo(this.map);
                 axios.get(response.data['places'])
                     .then(response => {
                         response.data.forEach(place => {
