@@ -13,6 +13,7 @@ body {
 }
 
 #menu {
+    padding-top: 10px;
     grid-column: 1;
     overflow:scroll;
     height: 100%;
