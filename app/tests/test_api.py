@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from typing import Any
 from uuid import uuid4
 
 from django.test import Client, TestCase
@@ -9,12 +8,12 @@ from ..factories import EvaluationFactory, MapFactory, PlaceFactory
 
 
 class MapApiTest(TestCase):
-    def test_bydomain(self) -> None:
+    def test_bydomain(self):
         map = MapFactory(slug="resto")
         PlaceFactory(map=map, latitude=2, longitude=2)
 
         c = Client()
-        resp: Any = c.get("/api/maps/bydomain/", HTTP_HOST="resto.localhost")
+        resp = c.get("/api/maps/bydomain/", HTTP_HOST="resto.localhost")
         expected_data = {
             "id": str(map.id),
             "name": map.name,
@@ -28,12 +27,12 @@ class MapApiTest(TestCase):
 
 
 class PlaceApiTest(TestCase):
-    def test_list(self) -> None:
+    def test_list(self):
         map = MapFactory(slug="resto")
         places = PlaceFactory.create_batch(3, map=map)
 
         c = Client()
-        resp: Any = c.get(
+        resp = c.get(
             "/api/places/?map_id={}".format(map.id),
             HTTP_HOST="resto.localhost",
         )
@@ -53,12 +52,12 @@ class PlaceApiTest(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data, expected_data)
 
-    def test_retrieve_without_note(self) -> None:
+    def test_retrieve_without_note(self):
         map = MapFactory(slug="resto")
         place = PlaceFactory.create(map=map)
 
         c = Client()
-        resp: Any = c.get(
+        resp = c.get(
             "/api/places/{}/".format(place.id), HTTP_HOST="resto.localhost"
         )
 
@@ -74,14 +73,14 @@ class PlaceApiTest(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data, expected_data)
 
-    def test_retrieve_with_note(self) -> None:
+    def test_retrieve_with_note(self):
         map = MapFactory(slug="resto")
         place = PlaceFactory.create(map=map)
         EvaluationFactory.create(place=place, note=6)
         EvaluationFactory.create(place=place, note=2)
 
         c = Client()
-        resp: Any = c.get(
+        resp = c.get(
             "/api/places/{}/".format(place.id), HTTP_HOST="resto.localhost"
         )
 
@@ -97,25 +96,25 @@ class PlaceApiTest(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data, expected_data)
 
-    def test_list_missing_map_id(self) -> None:
+    def test_list_missing_map_id(self):
         c = Client()
-        resp: Any = c.get("/api/places/", HTTP_HOST="resto.localhost")
+        resp = c.get("/api/places/", HTTP_HOST="resto.localhost")
 
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(resp.json(), {"detail": "Missing map_id filter"})
 
-    def test_list_map_id_not_json(self) -> None:
+    def test_list_map_id_not_json(self):
         c = Client()
-        resp: Any = c.get(
+        resp = c.get(
             "/api/places/?map_id={}".format("42"), HTTP_HOST="resto.localhost"
         )
 
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(resp.json(), {"detail": "map_id is not a valid UUID"})
 
-    def test_list_map_id_not_found(self) -> None:
+    def test_list_map_id_not_found(self):
         c = Client()
-        resp: Any = c.get(
+        resp = c.get(
             "/api/places/?map_id={}".format(uuid4()),
             HTTP_HOST="resto.localhost",
         )
