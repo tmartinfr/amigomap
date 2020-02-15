@@ -1,7 +1,6 @@
 from decimal import Decimal
 from io import StringIO
 from tempfile import NamedTemporaryFile
-from typing import Any
 
 from django.core.management import call_command
 from django.test import TestCase
@@ -11,7 +10,7 @@ from ..models import Map
 
 
 class CommandsTest(TestCase):
-    def test_app_populate_dev_db(self) -> None:
+    def test_app_populate_dev_db(self):
         out = StringIO()
 
         call_command("app_populate_dev_db", stdout=out)
@@ -24,7 +23,7 @@ class CommandsTest(TestCase):
         )
         self.assertEqual(out.getvalue(), expected_output)
 
-    def test_kml_import(self) -> None:
+    def test_kml_import(self):
         out = StringIO()
         user = UserFactory.create()
         kml_file = NamedTemporaryFile(suffix=".kml")
@@ -76,7 +75,7 @@ class CommandsTest(TestCase):
         )
 
         self.assertEqual(out.getvalue(), "")
-        map: Any = Map.objects.first()
+        map = Map.objects.first()
         self.assertEqual(map.name, "Resto map")
         expected_places = [
             ("Pousse au crime", Decimal("43.5266387"), Decimal("5.4541111")),

@@ -51,14 +51,6 @@ def isort(c):
 
 
 @task
-def mypy(c):
-    """
-    Check type hints
-    """
-    c.run("mypy app", pty=True)
-
-
-@task
 def openapi_check_schema(c):
     """
     Check OpenAPI schema is up-to-date
@@ -87,7 +79,6 @@ def test(c):
     """
     flake8(c)
     isort(c)
-    mypy(c)
     openapi_check_schema(c)
     pytest(c)
 

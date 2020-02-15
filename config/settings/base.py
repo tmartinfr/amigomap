@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-from typing import List
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,7 +26,7 @@ DEBUG = False
 
 # This setting should be overwritten with a value like ['.example.com'], so
 # maps can be requested using <map_slug>.example.com.
-ALLOWED_HOSTS: List[str] = []
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -124,6 +122,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAdminUser"],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
 }
 
 WHITENOISE_INDEX_FILE = True

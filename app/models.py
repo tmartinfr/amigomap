@@ -1,6 +1,5 @@
 import enum
 import uuid
-from typing import Optional, Tuple
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -42,14 +41,14 @@ class Map(BaseModel):
     class Meta:
         ordering = ["-created"]
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
 
-    def center(self) -> Tuple[float, float]:
+    def center(self):
         coord = self.place_set.aggregate(Avg("longitude"), Avg("latitude"))
         return (coord["latitude__avg"], coord["longitude__avg"])
 
-    def bounds(self) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+    def bounds(self):
         """
         Returns tuple of top-left and bottom-right map corners.
         """
@@ -73,7 +72,7 @@ class Tag(BaseModel):
     class Meta:
         ordering = ["-created"]
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
 
 
@@ -91,10 +90,10 @@ class Place(BaseModel):
     class Meta:
         ordering = ["-created"]
 
-    def __str__(self) -> str:
+    def __str__(self):
         return self.name
 
-    def note_mean(self) -> Optional[int]:
+    def note_mean(self):
         avg = self.evaluation_set.aggregate(Avg("note"))["note__avg"]
         if not avg:
             return None
@@ -109,7 +108,7 @@ class Evaluation(BaseModel):
     class Meta:
         ordering = ["-created"]
 
-    def __str__(self) -> str:
+    def __str__(self):
         return "Evaluation of {} by {}".format(
             self.place.name, self.creator.username
         )

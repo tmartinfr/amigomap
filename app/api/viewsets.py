@@ -2,13 +2,11 @@ from uuid import UUID
 
 import coreapi
 import coreschema
-from django.db.models import QuerySet
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.permissions import AllowAny
-from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.schemas import AutoSchema
 
@@ -22,7 +20,7 @@ class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = MapSerializer
 
     @action(detail=False)
-    def bydomain(self, request: Request) -> Response:
+    def bydomain(self, request):
         """
         Return map matching the request HTTP Host header.
         """
@@ -56,7 +54,7 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         ]
     )
 
-    def get_queryset(self) -> QuerySet:
+    def get_queryset(self):
         try:
             map_id = UUID(self.request.query_params["map_id"])
         except KeyError:

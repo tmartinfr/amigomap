@@ -1,4 +1,3 @@
-from typing import Any
 from urllib.parse import urlencode, urljoin
 
 from django.urls import reverse
@@ -12,9 +11,9 @@ class MapSerializer(serializers.ModelSerializer):
         model = Map
         fields = ("id", "name", "places", "center", "bounds")
 
-    places: Any = serializers.SerializerMethodField()
+    places = serializers.SerializerMethodField()
 
-    def get_places(self, obj: Map) -> str:
+    def get_places(self, obj):
         return urljoin(
             reverse("places-list"), "?" + urlencode({"map_id": obj.id})
         )
