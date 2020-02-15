@@ -85,12 +85,6 @@ jobs:
                     invoke isort
 
             - run:
-                name: Run mypy
-                command: |
-                    . ~/venv/bin/activate
-                    invoke mypy
-
-            - run:
                 name: Run pytest
                 command: |
                     . ~/venv/bin/activate
