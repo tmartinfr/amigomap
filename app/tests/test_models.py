@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from ..factories import (
@@ -8,6 +9,14 @@ from ..factories import (
     UserFactory,
 )
 from ..models import Map
+
+
+class UserModelTest(TestCase):
+    def test_manager_not_implemented_methods(self):
+        with self.assertRaises(NotImplementedError):
+            get_user_model().objects.create_user(None, None)
+        with self.assertRaises(NotImplementedError):
+            get_user_model().objects.create_superuser(None, None)
 
 
 class MapModelTest(TestCase):
@@ -58,6 +67,8 @@ class PlaceModelTest(TestCase):
 class EvaluationModelTest(TestCase):
     def test_str(self):
         place = PlaceFactory(name="Chez Nino")
-        creator = UserFactory(username="rico")
+        creator = UserFactory(email="rico@localhost")
         evaluation = EvaluationFactory(creator=creator, place=place)
-        self.assertEqual(str(evaluation), "Evaluation of Chez Nino by rico")
+        self.assertEqual(
+            str(evaluation), "Evaluation of Chez Nino by rico@localhost"
+        )

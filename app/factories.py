@@ -1,5 +1,6 @@
 import factory
 import factory.fuzzy
+from django.conf import settings
 from slugify import slugify
 
 from . import models
@@ -7,12 +8,10 @@ from . import models
 
 class UserFactory(factory.DjangoModelFactory):
     class Meta:
-        model = models.User
-        django_get_or_create = ("username",)
+        model = settings.AUTH_USER_MODEL
+        django_get_or_create = ("email",)
 
-    username = factory.Faker("sha1")
-    first_name = factory.Faker("first_name")
-    last_name = factory.Faker("last_name")
+    email = factory.Faker("email")
 
 
 class MapFactory(factory.DjangoModelFactory):

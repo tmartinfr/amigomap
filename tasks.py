@@ -39,7 +39,7 @@ def flake8(c):
     """
     Check linting
     """
-    c.run("flake8 -j 1", pty=True)
+    c.run("flake8 -j 1 --exclude=app/migrations", pty=True)
 
 
 @task
@@ -47,7 +47,11 @@ def isort(c):
     """
     Check imports
     """
-    c.run("find app/ -name '*.py' | xargs isort --check-only --diff", pty=True)
+    c.run(
+        "find app/ -name '*.py' -not -path 'app/migrations*' | \
+           xargs isort --check-only --diff",
+        pty=True,
+    )
 
 
 @task

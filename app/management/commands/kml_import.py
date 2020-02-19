@@ -1,5 +1,5 @@
 from defusedxml import minidom
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 
 from ...factories import MapFactory, PlaceFactory
@@ -13,7 +13,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("kml_file", type=str)
         parser.add_argument("map_slug", type=str)
-        parser.add_argument("creator_id", type=str)
+        parser.add_argument("creator_email", type=str)
 
     def _get_map_name(self, dom):
         document = dom.getElementsByTagName("Document")[0]
@@ -51,7 +51,7 @@ class Command(BaseCommand):
             )
 
     def handle(self, *args, **options):
-        creator = User.objects.get(id=options["creator_id"])
+        creator = get_user_model().objects.get(email=options["creator_email"])
         dom = minidom.parse(options["kml_file"])
         map_name = self._get_map_name(dom)
         places = self._get_places(dom)
