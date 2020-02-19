@@ -71,7 +71,7 @@ class CommandsTest(TestCase):
         kml_file.flush()
 
         call_command(
-            "kml_import", kml_file.name, "testmap", user.id, stdout=out
+            "kml_import", kml_file.name, "testmap", user.email, stdout=out
         )
 
         self.assertEqual(out.getvalue(), "")

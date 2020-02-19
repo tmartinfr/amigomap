@@ -1,19 +1,31 @@
 import enum
 import uuid
 
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.db.models import Avg, Max, Min
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 from .fields import ColorField
-from .managers import FilterManager
+from .managers import FilterManager, UserManager
+
+
+class User(AbstractBaseUser, TimeStampedModel, PermissionsMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    email = models.EmailField(unique=True)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    USERNAME_FIELD = "email"
+    EMAIL_FIELD = "email"
+
+    objects = UserManager()
 
 
 class BaseModel(TimeStampedModel, SoftDeletableModel, models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     creator = models.ForeignKey(
-        User, on_delete=models.PROTECT, related_name="+"
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT, related_name="+"
     )
 
     class Meta:
@@ -30,8 +42,12 @@ class Map(BaseModel):
         choices=[(v.name, v.value) for v in Visibility],
         default=Visibility.private.name,
     )
-    admin = models.ManyToManyField(User, related_name="+", blank=True)
-    viewer = models.ManyToManyField(User, related_name="+", blank=True)
+    admin = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="+", blank=True
+    )
+    viewer = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="+", blank=True
+    )
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=50, unique=True)
 
@@ -110,5 +126,5 @@ class Evaluation(BaseModel):
 
     def __str__(self):
         return "Evaluation of {} by {}".format(
-            self.place.name, self.creator.username
+            self.place.name, self.creator.email
         )

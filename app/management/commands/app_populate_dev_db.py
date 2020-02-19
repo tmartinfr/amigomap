@@ -29,7 +29,7 @@ class Command(BaseCommand):
 
     def _create_admin(self):
         admin = UserFactory.create(
-            is_staff=True, is_superuser=True, username="admin"
+            is_staff=True, is_superuser=True, email="admin@localhost"
         )
         admin.set_password("admin")
         admin.save()
