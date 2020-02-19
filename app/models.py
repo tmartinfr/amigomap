@@ -5,13 +5,16 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.db.models import Avg, Max, Min
+from model_utils.managers import SoftDeletableManager
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 from .fields import ColorField
 from .managers import FilterManager, UserManager
 
 
-class User(AbstractBaseUser, TimeStampedModel, PermissionsMixin):
+class User(
+    AbstractBaseUser, TimeStampedModel, SoftDeletableModel, PermissionsMixin
+):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False)
