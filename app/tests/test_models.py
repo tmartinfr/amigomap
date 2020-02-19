@@ -18,6 +18,16 @@ class UserModelTest(TestCase):
         with self.assertRaises(NotImplementedError):
             get_user_model().objects.create_superuser(None, None)
 
+    def test_soft_delete(self):
+        user = UserFactory()
+        self.assertFalse(user.is_removed)
+        self.assertTrue(get_user_model().objects.filter(pk=user.pk).exists())
+
+        user.delete()
+
+        self.assertTrue(user.is_removed)
+        self.assertFalse(get_user_model().objects.filter(pk=user.pk).exists())
+
 
 class MapModelTest(TestCase):
     def test_str(self):

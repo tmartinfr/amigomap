@@ -5,13 +5,16 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.db.models import Avg, Max, Min
+from model_utils.managers import SoftDeletableManager
 from model_utils.models import SoftDeletableModel, TimeStampedModel
 
 from .fields import ColorField
 from .managers import FilterManager, UserManager
 
 
-class User(AbstractBaseUser, TimeStampedModel, PermissionsMixin):
+class User(
+    AbstractBaseUser, TimeStampedModel, SoftDeletableModel, PermissionsMixin
+):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False)
@@ -51,7 +54,7 @@ class Map(BaseModel):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=50, unique=True)
 
-    objects = models.Manager()
+    objects = SoftDeletableManager()
     public = FilterManager({"visibility": Visibility.public.name})
 
     class Meta:
@@ -100,7 +103,7 @@ class Place(BaseModel):
     longitude = models.DecimalField(max_digits=10, decimal_places=7)
     google_place_id = models.CharField(max_length=1024, null=True, blank=True)
 
-    objects = models.Manager()
+    objects = SoftDeletableManager()
     public = FilterManager({"map__visibility": Map.Visibility.public.name})
 
     class Meta:
