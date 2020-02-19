@@ -54,7 +54,7 @@ class Map(BaseModel):
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=50, unique=True)
 
-    objects = models.Manager()
+    objects = SoftDeletableManager()
     public = FilterManager({"visibility": Visibility.public.name})
 
     class Meta:
@@ -103,7 +103,7 @@ class Place(BaseModel):
     longitude = models.DecimalField(max_digits=10, decimal_places=7)
     google_place_id = models.CharField(max_length=1024, null=True, blank=True)
 
-    objects = models.Manager()
+    objects = SoftDeletableManager()
     public = FilterManager({"map__visibility": Map.Visibility.public.name})
 
     class Meta:
