@@ -39,7 +39,7 @@ def flake8(c):
     """
     Check linting
     """
-    c.run("flake8 -j 1", pty=True)
+    c.run("flake8 -j 1 --exclude=app/migrations", pty=True)
 
 
 @task
