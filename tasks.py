@@ -47,7 +47,11 @@ def isort(c):
     """
     Check imports
     """
-    c.run("find app/ -name '*.py' | xargs isort --check-only --diff", pty=True)
+    c.run(
+        "find app/ -name '*.py' -not -path 'app/migrations*' | \
+           xargs isort --check-only --diff",
+        pty=True,
+    )
 
 
 @task
