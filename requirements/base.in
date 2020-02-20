@@ -1,4 +1,5 @@
 defusedxml
+drf-flex-fields
 Django
 django-model-utils
 djangorestframework
