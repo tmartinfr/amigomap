@@ -83,6 +83,6 @@ class CommandsTest(TestCase):
             ("Piadina", Decimal("43.5259687"), Decimal("5.4523033")),
         ]
         self.assertListEqual(
-            list(map.place_set.values_list("name", "latitude", "longitude")),
+            list(map.places.values_list("name", "latitude", "longitude")),
             expected_places,
         )

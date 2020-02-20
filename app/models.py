@@ -64,14 +64,14 @@ class Map(BaseModel):
         return self.name
 
     def center(self):
-        coord = self.place_set.aggregate(Avg("longitude"), Avg("latitude"))
+        coord = self.places.aggregate(Avg("longitude"), Avg("latitude"))
         return (coord["latitude__avg"], coord["longitude__avg"])
 
     def bounds(self):
         """
         Returns tuple of top-left and bottom-right map corners.
         """
-        bounds = self.place_set.aggregate(
+        bounds = self.places.aggregate(
             Min("longitude"),
             Min("latitude"),
             Max("longitude"),
@@ -96,7 +96,9 @@ class Tag(BaseModel):
 
 
 class Place(BaseModel):
-    map = models.ForeignKey(Map, on_delete=models.CASCADE)
+    map = models.ForeignKey(
+        Map, on_delete=models.CASCADE, related_name="places"
+    )
     tag = models.ManyToManyField(Tag, blank=True)
     name = models.CharField(max_length=255)
     latitude = models.DecimalField(max_digits=9, decimal_places=7)
