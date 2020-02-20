@@ -8,6 +8,13 @@ paths:
     get:
       description: Return map matching the request HTTP Host header.
       operationId: maps_bydomain
+      parameters:
+      - in: query
+        name: expand
+        schema:
+          description: Expand places list
+          title: ''
+          type: string
       tags:
       - maps
   /api/maps/{id}/:
@@ -20,6 +27,12 @@ paths:
         schema:
           description: A UUID string identifying this map.
           title: id
+          type: string
+      - in: query
+        name: expand
+        schema:
+          description: Expand places list
+          title: ''
           type: string
       tags:
       - maps
