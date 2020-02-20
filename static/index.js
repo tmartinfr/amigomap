@@ -5,15 +5,13 @@ new Vue({
         place_list: []
     },
     mounted() {
-        axios.get('/api/maps/bydomain/')
+        axios.get('/api/maps/bydomain/?expand=places')
             .then(response => {
                 let map_bounds = response.data['bounds'];
                 this.map_name = response.data['name'];
                 this.map = L.map('map').fitBounds(map_bounds);
                 L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {}).addTo(this.map);
-                axios.get(response.data['places'])
-                    .then(response => {
-                        response.data.forEach(place => {
+                response.data['places'].forEach(place => {
                             var color = 'blue';
                             if (place.note_mean < 4) {
                                 color = 'red';
@@ -32,8 +30,7 @@ new Vue({
                             });
                             place.marker = L.marker([place.latitude, place.longitude], {icon: icon}).addTo(this.map).bindPopup(place.name).openPopup();
                             this.place_list.push(place);
-                        });
-                    });
+                });
             });
     },
     methods: {
