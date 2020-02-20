@@ -18,6 +18,16 @@ class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     permission_classes = (AllowAny,)
     queryset = Map.public.all()
     serializer_class = MapSerializer
+    schema = AutoSchema(
+        manual_fields=[
+            coreapi.Field(
+                "expand",
+                required=False,
+                location="query",
+                schema=coreschema.String(description="Expand places list"),
+            )
+        ]
+    )
 
     @action(detail=False)
     def bydomain(self, request):
@@ -26,7 +36,9 @@ class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
         """
         map_slug = request.META["HTTP_HOST"].split(".")[0]
         map = get_object_or_404(Map, slug=map_slug)
-        serializer = MapSerializer(map)
+        serializer = MapSerializer(
+            map, expand=request.query_params.getlist("expand")
+        )
         return Response(serializer.data)
 
 
