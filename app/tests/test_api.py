@@ -8,25 +8,70 @@ from ..factories import EvaluationFactory, MapFactory, PlaceFactory
 
 
 class MapApiTest(TestCase):
-    def test_bydomain(self):
-        map = MapFactory(slug="resto")
-        PlaceFactory(map=map, latitude=2, longitude=2)
+    def setUp(self):
+        self.map = MapFactory(slug="resto")
+        self.place = PlaceFactory(map=self.map, latitude=2, longitude=2)
 
+    @classmethod
+    def _expected_data(cls, map, expand=False):
+        data = OrderedDict(
+            (
+                ("id", str(map.id)),
+                ("name", map.name),
+                ("center", (2, 2)),
+                ("bounds", ((2, 2), (2, 2))),
+            )
+        )
+        if expand:
+            data.update(
+                places=[PlaceApiTest._expected_data(map.places.first())]
+            )
+        return data
+
+    def test_retrieve(self):
         c = Client()
-        resp = c.get("/api/maps/bydomain/", HTTP_HOST="resto.localhost")
-        expected_data = {
-            "id": str(map.id),
-            "name": map.name,
-            "places": "/api/places/?map_id={}".format(map.id),
-            "center": (2, 2),
-            "bounds": ((2, 2), (2, 2)),
-        }
+        resp = c.get(f"/api/maps/{self.map.id}/")
 
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp.data, expected_data)
+        self.assertEqual(resp.data, self._expected_data(self.map))
+
+    def test_retrieve_expand(self):
+        c = Client()
+        resp = c.get(f"/api/maps/{self.map.id}/?expand=places")
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, self._expected_data(self.map, expand=True))
+
+    def test_bydomain(self):
+        c = Client()
+        resp = c.get("/api/maps/bydomain/", HTTP_HOST="resto.localhost")
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, self._expected_data(self.map))
+
+    def test_bydomain_expand(self):
+        c = Client()
+        resp = c.get(
+            "/api/maps/bydomain/?expand=places", HTTP_HOST="resto.localhost"
+        )
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data, self._expected_data(self.map, expand=True))
 
 
 class PlaceApiTest(TestCase):
+    @classmethod
+    def _expected_data(cls, place, note=None):
+        return OrderedDict(
+            (
+                ("id", str(place.id)),
+                ("name", place.name),
+                ("latitude", "{:.7f}".format(place.latitude)),
+                ("longitude", "{:.7f}".format(place.longitude)),
+                ("note_mean", note),
+            )
+        )
+
     def test_list(self):
         map = MapFactory(slug="resto")
         places = PlaceFactory.create_batch(3, map=map)
@@ -38,16 +83,7 @@ class PlaceApiTest(TestCase):
         )
 
         expected_data = [
-            OrderedDict(
-                [
-                    ("id", str(place.id)),
-                    ("name", place.name),
-                    ("latitude", "{:.7f}".format(place.latitude)),
-                    ("longitude", "{:.7f}".format(place.longitude)),
-                    ("note_mean", None),
-                ]
-            )
-            for place in reversed(places)
+            self._expected_data(place) for place in reversed(places)
         ]
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(resp.data, expected_data)
@@ -61,17 +97,8 @@ class PlaceApiTest(TestCase):
             "/api/places/{}/".format(place.id), HTTP_HOST="resto.localhost"
         )
 
-        expected_data = OrderedDict(
-            [
-                ("id", str(place.id)),
-                ("name", place.name),
-                ("latitude", "{:.7f}".format(place.latitude)),
-                ("longitude", "{:.7f}".format(place.longitude)),
-                ("note_mean", None),
-            ]
-        )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp.data, expected_data)
+        self.assertEqual(resp.data, self._expected_data(place))
 
     def test_retrieve_with_note(self):
         map = MapFactory(slug="resto")
@@ -84,17 +111,8 @@ class PlaceApiTest(TestCase):
             "/api/places/{}/".format(place.id), HTTP_HOST="resto.localhost"
         )
 
-        expected_data = OrderedDict(
-            [
-                ("id", str(place.id)),
-                ("name", place.name),
-                ("latitude", "{:.7f}".format(place.latitude)),
-                ("longitude", "{:.7f}".format(place.longitude)),
-                ("note_mean", 4),
-            ]
-        )
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        self.assertEqual(resp.data, expected_data)
+        self.assertEqual(resp.data, self._expected_data(place, note=4))
 
     def test_list_missing_map_id(self):
         c = Client()
