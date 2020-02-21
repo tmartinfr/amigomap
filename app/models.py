@@ -84,7 +84,7 @@ class Map(BaseModel):
 
 
 class Tag(BaseModel):
-    map = models.ForeignKey(Map, on_delete=models.CASCADE)
+    map = models.ForeignKey(Map, on_delete=models.PROTECT)
     name = models.CharField(max_length=255)
     color = ColorField()
 
@@ -97,7 +97,7 @@ class Tag(BaseModel):
 
 class Place(BaseModel):
     map = models.ForeignKey(
-        Map, on_delete=models.CASCADE, related_name="places"
+        Map, on_delete=models.PROTECT, related_name="places"
     )
     tag = models.ManyToManyField(Tag, blank=True)
     name = models.CharField(max_length=255)
@@ -122,7 +122,7 @@ class Place(BaseModel):
 
 
 class Evaluation(BaseModel):
-    place = models.ForeignKey(Place, on_delete=models.CASCADE)
+    place = models.ForeignKey(Place, on_delete=models.PROTECT)
     note = models.IntegerField()
     comment = models.TextField()
 
