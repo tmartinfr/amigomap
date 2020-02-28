@@ -59,6 +59,7 @@ class Map(BaseModelMixin, Model):
         public = "Public"
         private = "Private"
 
+    # Altered to PostgreSQL type in app/migrations/0003_uuid_types.py.
     visibility = CharField(
         max_length=32,
         choices=[(v.name, v.value) for v in Visibility],
