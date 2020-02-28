@@ -1,7 +1,6 @@
 defusedxml
 drf-flex-fields
 Django
-django-model-utils
 djangorestframework
 psycopg2-binary
 python-slugify

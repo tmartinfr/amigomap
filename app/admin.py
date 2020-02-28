@@ -6,13 +6,17 @@ from .models import Evaluation, Map, Place, Tag, User
 # Register your models here.
 
 
-class MapAdmin(admin.ModelAdmin):
+class BaseAdmin(admin.ModelAdmin):
+    readonly_fields = ("id", "created_at", "updated_at")
+
+
+class MapAdmin(BaseAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
 
 admin.site.unregister(Group)
-admin.site.register(User)
+admin.site.register(User, BaseAdmin)
 admin.site.register(Map, MapAdmin)
-admin.site.register(Tag)
-admin.site.register(Place)
-admin.site.register(Evaluation)
+admin.site.register(Tag, BaseAdmin)
+admin.site.register(Place, BaseAdmin)
+admin.site.register(Evaluation, BaseAdmin)
