@@ -1,9 +1,8 @@
 from django.contrib.auth.models import BaseUserManager
 from django.db import models
-from model_utils.managers import SoftDeletableManagerMixin
 
 
-class UserManager(SoftDeletableManagerMixin, BaseUserManager):
+class UserManager(BaseUserManager):
     def create_user(self, email, password):
         raise NotImplementedError
 
