@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-docker-compose up -d
+set -e
+
+docker-compose up -d --build
 docker-compose exec app invoke populate-dev-db
 docker-compose exec app invoke run
