@@ -9,6 +9,7 @@ defaults: &defaults
         # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
         - image: circleci/python:3.7.3
           environment:
+              ALLOWED_HOST: '.localhost'
               PYTHONPATH: .
               DB_NAME: circle_test
               DB_USER: db

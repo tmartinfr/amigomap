@@ -13,10 +13,14 @@ services:
               target: /home/app/app/
         environment:
             # Remember to also update .circleci/config.yml
+            ALLOWED_HOST: '.localhost'
             DB_NAME: 'db'
             DB_USER: 'db'
             DB_PASSWORD: 'db'
             DB_HOST: 'db'
+            DJANGO_SETTINGS_MODULE: 'config.settings.dev'
+            PATH: '/home/app/.local/bin:/usr/bin:/bin'
+            PYTHONPATH: '/home/app/app'
             SECRET_KEY: 'secret'
     db:
         image: postgres:9.6
