@@ -1,7 +1,7 @@
 # Remember to also update .circleci/config.yml
-FROM python:3.7.3-stretch
+FROM debian:buster
 RUN apt-get update
-RUN apt-get install -y vim less postgresql-client
+RUN apt-get install -y vim less postgresql-client python3-pip
 
 RUN useradd -m -s /bin/bash app
 USER app
@@ -11,4 +11,4 @@ WORKDIR /home/app/app
 ENV PYTHONPATH=/home/app/app
 ENV DJANGO_SETTINGS_MODULE=config.settings.dev
 COPY --chown=app:app requirements/*.txt requirements/
-RUN pip install --user -r requirements/dev.txt
+RUN pip3 install --user --no-warn-script-location -r requirements/dev.txt
