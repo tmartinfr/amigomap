@@ -17,6 +17,9 @@ services:
             DB_USER: 'db'
             DB_PASSWORD: 'db'
             DB_HOST: 'db'
+            DJANGO_SETTINGS_MODULE: 'config.settings.dev'
+            PATH: '/home/app/.local/bin:/usr/local/bin:/usr/bin:/bin'
+            PYTHONPATH: '/home/app/app'
             SECRET_KEY: 'secret'
     db:
         image: postgres:9.6
