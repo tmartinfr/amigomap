@@ -1,14 +1,11 @@
 from uuid import UUID
 
-import coreapi
-import coreschema
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, viewsets
 from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound, ParseError
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-from rest_framework.schemas import AutoSchema
 
 from ..models import Map, Place
 from .serializers import MapSerializer, PlaceSerializer
@@ -18,16 +15,6 @@ class MapViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     permission_classes = (AllowAny,)
     queryset = Map.public.all()
     serializer_class = MapSerializer
-    schema = AutoSchema(
-        manual_fields=[
-            coreapi.Field(
-                "expand",
-                required=False,
-                location="query",
-                schema=coreschema.String(description="Expand places list"),
-            )
-        ]
-    )
 
     @action(detail=False)
     def bydomain(self, request):
@@ -55,16 +42,6 @@ class PlaceListViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
     permission_classes = (AllowAny,)
     serializer_class = PlaceSerializer
-    schema = AutoSchema(
-        manual_fields=[
-            coreapi.Field(
-                "map_id",
-                required=True,
-                location="query",
-                schema=coreschema.String(description="Map identifier"),
-            )
-        ]
-    )
 
     def get_queryset(self):
         try:
