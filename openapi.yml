@@ -1,66 +1,73 @@
 info:
-  description: ''
-  title: ''
+  title: 'Amigomap API'
   version: ''
-openapi: 3.0.0
+openapi: 3.0.3
 paths:
   /api/maps/bydomain/:
     get:
-      description: Return map matching the request HTTP Host header.
-      operationId: maps_bydomain
       parameters:
       - in: query
         name: expand
+        description: Expand places list
         schema:
-          description: Expand places list
-          title: ''
           type: string
+          enum:
+            - places
+      responses:
+        '200':
+          description: map matching the request HTTP Host header
+        '404':
+          description: map not found
       tags:
       - maps
   /api/maps/{id}/:
     get:
-      operationId: maps_read
       parameters:
       - in: path
         name: id
+        description: UUID identifying this map.
         required: true
         schema:
-          description: A UUID string identifying this map.
           title: id
           type: string
       - in: query
         name: expand
+        description: Expand places list
         schema:
-          description: Expand places list
-          title: ''
           type: string
+          enum:
+            - places
+      responses:
+        '200':
+          description: map
       tags:
       - maps
   /api/places/:
     get:
-      description: Return places belonging to the specified map_id.
-      operationId: places_list
       parameters:
       - in: query
         name: map_id
+        description: Map identifier
         required: true
         schema:
-          description: Map identifier
-          title: ''
           type: string
+      responses:
+        '200':
+          description: places for the given map
       tags:
       - places
   /api/places/{id}/:
     get:
-      operationId: places_read
       parameters:
       - in: path
         name: id
+        description: UUID identifying this place.
         required: true
         schema:
-          description: A UUID string identifying this place.
-          title: id
           type: string
+      responses:
+        '200':
+          description: place
       tags:
       - places
 servers:

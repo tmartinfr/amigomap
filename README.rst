@@ -30,6 +30,4 @@ http://coworking.localhost:8000/.
 Additional resources for developers
 ===================================
 - Django admin : http://localhost:8000/admin/ (admin/admin)
-- API schema : http://localhost:8000/api/
-- API doc : http://localhost:8000/api/doc/
 

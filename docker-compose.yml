@@ -13,7 +13,7 @@ services:
               target: /home/app/app/
         environment:
             # Remember to also update .circleci/config.yml
-            ALLOWED_HOST: '.localhost'
+            BASE_DOMAIN: '.localhost'
             DB_NAME: 'db'
             DB_USER: 'db'
             DB_PASSWORD: 'db'

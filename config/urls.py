@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf import settings
 from django.urls import include, path
-from rest_framework.permissions import AllowAny
 
 from app.api import api_router
 
@@ -23,19 +22,7 @@ urlpatterns = [path("api/", include(api_router.urls))]
 
 if settings.DEBUG:
     from django.contrib import admin
-    from rest_framework.schemas import get_schema_view
-    from rest_framework.documentation import include_docs_urls
 
-    schema_view = get_schema_view(
-        title="API documentation", permission_classes=[AllowAny]
-    )
     urlpatterns += [
         path("admin/", admin.site.urls),
-        path("api/", schema_view),
-        path(
-            "api/doc/",
-            include_docs_urls(
-                title="API documentation", permission_classes=[AllowAny]
-            ),
-        ),
     ]

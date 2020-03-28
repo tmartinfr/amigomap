@@ -9,7 +9,7 @@ defaults: &defaults
         # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
         - image: circleci/python:3.7.3
           environment:
-              ALLOWED_HOST: '.localhost'
+              BASE_DOMAIN: '.localhost'
               PYTHONPATH: .
               DB_NAME: circle_test
               DB_USER: db
@@ -90,12 +90,6 @@ jobs:
                 command: |
                     . ~/venv/bin/activate
                     invoke pytest
-
-            - run:
-                name: Run openapi-check-schema
-                command: |
-                    . ~/venv/bin/activate
-                    invoke openapi-check-schema
 
             - store_artifacts:
                 path: test-reports

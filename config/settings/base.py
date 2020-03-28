@@ -26,7 +26,7 @@ DEBUG = False
 
 # This setting should be overwritten with a value like ['.example.com'], so
 # maps can be requested using <map_slug>.example.com.
-ALLOWED_HOSTS = [os.environ["ALLOWED_HOST"]]
+ALLOWED_HOSTS = [os.environ["BASE_DOMAIN"]]
 
 
 # Application definition

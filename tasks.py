@@ -55,16 +55,6 @@ def isort(c):
 
 
 @task
-def openapi_check_schema(c):
-    """
-    Check OpenAPI schema is up-to-date
-    """
-    c.run("cp openapi.yml /tmp")
-    openapi_generate_schema(c)
-    c.run("diff /tmp/openapi.yml openapi.yml")
-
-
-@task
 def pytest(c):
     """
     Run unit tests
@@ -83,16 +73,4 @@ def test(c):
     """
     flake8(c)
     isort(c)
-    openapi_check_schema(c)
     pytest(c)
-
-
-@task
-def openapi_generate_schema(c):
-    """
-    Generate OpenAPI schema
-    """
-    c.run(
-        "django-admin generateschema --url http://localhost:8000 >openapi.yml",
-        env={"DJANGO_SETTINGS_MODULE": "config.settings.base"},
-    )
