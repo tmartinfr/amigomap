@@ -27,7 +27,12 @@ Then, check and execute the ``./bin/quickstart`` script (Docker powered).
 Finally, try to open one the example map in your browser, for example
 http://coworking.localhost:8000/.
 
-Additional resources for developers
-===================================
-- Django admin : http://localhost:8000/admin/ (admin/admin)
+Additional notes
+================
+In development mode, Django admin is available at
+http://resto.localhost:8000/admin/ (reusing one the map domain created above)
+with credentials `admin/admin`.
 
+In production mode (`config.settings.base` is used), default Django logging is
+fully disabled. It's up to the system administrator to configure logging before
+executing Django `get_wsgi_application()` (if WSGI is used).
