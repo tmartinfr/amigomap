@@ -23,7 +23,7 @@ services:
             PYTHONPATH: '/home/app/app'
             SECRET_KEY: 'secret'
     db:
-        image: postgres:9.6
+        image: postgres:11.7
         environment:
             POSTGRES_USER: db
             POSTGRES_PASSWORD: db
