@@ -42,7 +42,7 @@ django==3.0.4
     #   -r base.in
     #   django-debug-toolbar
     #   djangorestframework
-djangorestframework==3.11.0
+djangorestframework==3.11.2
     # via -r base.in
 drf-flex-fields==0.7.5
     # via -r base.in
