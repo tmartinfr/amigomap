@@ -33,7 +33,7 @@ decorator==4.4.2
     #   traitlets
 defusedxml==0.6.0
     # via -r base.in
-django-debug-toolbar==2.2
+django-debug-toolbar==2.2.1
     # via -r dev.in
 django-extensions==2.2.9
     # via -r dev.in
