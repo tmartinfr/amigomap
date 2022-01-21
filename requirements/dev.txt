@@ -33,15 +33,15 @@ decorator==4.4.2
     #   traitlets
 defusedxml==0.6.0
     # via -r base.in
-django-debug-toolbar==2.2
-    # via -r dev.in
-django-extensions==2.2.9
-    # via -r dev.in
 django==3.0.4
     # via
     #   -r base.in
     #   django-debug-toolbar
     #   djangorestframework
+django-debug-toolbar==2.2
+    # via -r dev.in
+django-extensions==2.2.9
+    # via -r dev.in
 djangorestframework==3.11.0
     # via -r base.in
 drf-flex-fields==0.7.5
@@ -52,6 +52,13 @@ factory-boy==2.12.0
     # via -r dev.in
 faker==4.0.2
     # via factory-boy
+flake8==3.7.9
+    # via
+    #   -r dev.in
+    #   flake8-bandit
+    #   flake8-black
+    #   flake8-bugbear
+    #   flake8-polyfill
 flake8-bandit==2.1.2
     # via -r dev.in
 flake8-black==0.1.1
@@ -62,13 +69,6 @@ flake8-polyfill==1.0.2
     # via
     #   flake8-bandit
     #   pep8-naming
-flake8==3.7.9
-    # via
-    #   -r dev.in
-    #   flake8-bandit
-    #   flake8-black
-    #   flake8-bugbear
-    #   flake8-polyfill
 gitdb==4.0.2
     # via gitpython
 gitpython==3.1.0
@@ -77,10 +77,10 @@ invoke==1.4.1
     # via -r dev.in
 ipdb==0.13.2
     # via -r dev.in
+ipython==7.16.3
+    # via ipdb
 ipython-genutils==0.2.0
     # via traitlets
-ipython==7.13.0
-    # via ipdb
 isort==4.3.21
     # via -r dev.in
 jedi==0.16.0
@@ -127,14 +127,14 @@ pygments==2.7.4
     # via ipython
 pyparsing==2.4.6
     # via packaging
-pytest-cov==2.8.1
-    # via -r dev.in
-pytest-django==3.8.0
-    # via -r dev.in
 pytest==5.4.1
     # via
     #   pytest-cov
     #   pytest-django
+pytest-cov==2.8.1
+    # via -r dev.in
+pytest-django==3.8.0
+    # via -r dev.in
 python-dateutil==2.8.1
     # via faker
 python-slugify==4.0.0
